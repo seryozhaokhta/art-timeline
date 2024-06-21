@@ -1,0 +1,288 @@
+{
+  "Western-European-art-periodization": [
+    {
+      "id": "epoch1",
+      "epoch": "Ancient Art",
+      "expandable": true,
+      "expanded": false,
+      "subItems": [
+        {
+          "title": "Homeric Era",
+          "dates": "12th–8th centuries BCE",
+          "trend": "rise",
+          "expanded": false
+        },
+        {
+          "title": "Archaic Period",
+          "dates": "7th–5th centuries BCE",
+          "trend": "rise",
+          "expanded": false
+        },
+        {
+          "title": "Classical Period",
+          "dates": "5th–1st centuries BCE",
+          "subperiodsIcon": "/src/assets/subperiodsIcon.svg",
+          "expandable": true,
+          "expanded": false,
+          "type": "subperiods",
+          "subperiods": [
+            {
+              "title": "Early Classical",
+              "trend": "rise",
+              "expanded": false
+            },
+            {
+              "title": "High Classical",
+              "trend": "rise",
+              "expanded": false
+            },
+            {
+              "title": "Late Classical",
+              "trend": "rise",
+              "expanded": false
+            }
+          ]
+        },
+        {
+          "title": "Hellenistic Period",
+          "dates": "mid-4th century BCE — 1st century BCE",
+          "trend": "rise",
+          "expanded": false
+        }
+      ]
+    },
+    {
+      "id": "epoch2",
+      "epoch": "Medieval Art",
+      "expandable": true,
+      "expanded": false,
+      "subItems": [
+        {
+          "title": "Byzantium",
+          "trend": "rise",
+          "expanded": false
+        },
+        {
+          "title": "Early Middle Ages",
+          "dates": "260 — 525",
+          "trend": "decline",
+          "expanded": false
+        },
+        {
+          "title": "Romanesque",
+          "dates": "800 — 1200",
+          "crisisIcon": "/src/assets/crisisIcon.svg",
+          "expandable": true,
+          "expanded": false,
+          "type": "crisis",
+          "crisis": [
+            {
+              "title": "Iconoclasm",
+              "trend": "decline",
+              "expanded": false
+            }
+          ]
+        },
+        {
+          "title": "Gothic",
+          "dates": "1100 — 1400",
+          "transitionIcon": "/src/assets/transitionIcon.svg",
+          "expandable": true,
+          "expanded": false,
+          "type": "transition",
+          "transition": [
+            {
+              "title": "Proto-Renaissance",
+              "trend": "rise",
+              "expanded": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "epoch3",
+      "epoch": "Renaissance",
+      "expandable": true,
+      "expanded": false,
+      "tags": ["Italian", "French", "German", "Dutch"],
+      "Italian": [
+        {
+          "title": "Early Renaissance",
+          "dates": "1520 — 1600",
+          "trend": "rise",
+          "expanded": false
+        },
+        {
+          "title": "High Renaissance",
+          "dates": "1520 — 1600",
+          "trend": "rise",
+          "expanded": false
+        },
+        {
+          "title": "Mannerism",
+          "dates": "1520 — 1600",
+          "trend": "decline",
+          "expanded": false
+        }
+      ],
+      "French": [
+        {
+          "title": "Early Renaissance",
+          "dates": "1495 — 1530",
+          "trend": "rise",
+          "expanded": false
+        },
+        {
+          "title": "High Renaissance",
+          "dates": "1530 — 1560",
+          "trend": "rise",
+          "expanded": false
+        },
+        {
+          "title": "Late Renaissance",
+          "dates": "1560 — 1610",
+          "trend": "decline",
+          "expanded": false
+        }
+      ],
+      "German": [
+        {
+          "title": "Early Renaissance",
+          "dates": "circa 1430 — 1500",
+          "trend": "rise",
+          "expanded": false
+        },
+        {
+          "title": "High Renaissance",
+          "dates": "circa 1500 — 1530",
+          "trend": "rise",
+          "expanded": false
+        }
+      ],
+      "Dutch": [
+        {
+          "title": "Early Renaissance",
+          "dates": "1420 — 1520",
+          "trend": "rise",
+          "expanded": false
+        },
+        {
+          "title": "High Renaissance",
+          "dates": "1520 — 1600",
+          "trend": "rise",
+          "expanded": false
+        }
+      ]
+    },
+    {
+      "id": "epoch4",
+      "epoch": "The Age of Enlightenment",
+      "expandable": true,
+      "expanded": false,
+      "subItems": [
+        {
+          "title": "Baroque",
+          "dates": "1600 — 1730",
+          "trend": "rise",
+          "transitionIcon": "/src/assets/transitionIcon.svg",
+          "expandable": true,
+          "expanded": false,
+          "type": "transition",
+          "transition": [
+            {
+              "title": "Rococo",
+              "dates": "1720 — 1780",
+              "expanded": false
+            }
+          ]
+        },
+        {
+          "title": "Classicism",
+          "dates": "1750 — 1830",
+          "trend": "rise",
+          "expanded": false
+        }
+      ]
+    },
+    {
+      "id": "epoch5",
+      "epoch": "Romanticism",
+      "expandable": true,
+      "expanded": false,
+      "subItems": [
+        {
+          "title": "Sentimentalism",
+          "trend": "rise",
+          "expanded": false
+        },
+        {
+          "title": "Academism",
+          "schoolsIcon": "/src/assets/schoolsIcon.svg",
+          "expandable": true,
+          "expanded": false,
+          "type": "schools",
+          "schools": [
+            {
+              "title": "Biedermeier",
+              "trend": "stability",
+              "expanded": false
+            },
+            {
+              "title": "Academism",
+              "trend": "decline",
+              "expanded": false
+            }
+          ]
+        },
+        {
+          "title": "Realism",
+          "trend": "rise",
+          "expanded": false
+        },
+        {
+          "title": "Pre-Raphaelitism",
+          "trend": "rise",
+          "expanded": false
+        },
+        {
+          "title": "Eclecticism",
+          "trend": "decline",
+          "expanded": false
+        }
+      ]
+    },
+    {
+      "id": "epoch6",
+      "epoch": "Modernism",
+      "expandable": true,
+      "expanded": false,
+      "subItems": [
+        {
+          "title": "Impressionism",
+          "dates": "1860 — 1890",
+          "trend": "rise",
+          "expanded": false
+        },
+        {
+          "title": "Art Nouveau",
+          "dates": "1890 — 1914",
+          "trend": "rise",
+          "expanded": false
+        },
+        {
+          "title": "Post-Impressionism",
+          "dates": "1886 — 1905",
+          "trend": "rise",
+          "expanded": false
+        },
+        {
+          "title": "Symbolism",
+          "dates": "1880 — 1910",
+          "trend": "decline",
+          "expanded": false
+        }
+      ]
+    }
+  ]
+}
