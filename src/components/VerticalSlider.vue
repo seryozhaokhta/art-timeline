@@ -1,7 +1,7 @@
 <!-- components/VerticalSlider.vue -->
 
 <template>
-    <div class="vertical-slider" @mousedown="startDrag" @mouseup="stopDrag">
+    <div class="vertical-slider" @mousedown="startDrag" @touchstart="startDrag">
         <div class="slider-bar"></div>
         <div class="slider-handle" :style="{ top: handlePosition + '%' }"></div>
     </div>
@@ -12,30 +12,34 @@ export default {
     data() {
         return {
             dragging: false,
-            handlePosition: 0, // Позиция в процентах от верха
+            handlePosition: 0,
         };
     },
     methods: {
-        startDrag() {
+        startDrag(event) {
+            event.preventDefault();
             this.dragging = true;
-            // Добавляем обработчик перемещения мыши ко всему документу,
-            // чтобы регулятор можно было тянуть, даже выйдя за его пределы
             document.addEventListener('mousemove', this.drag);
+            document.addEventListener('touchmove', this.drag);
+            document.addEventListener('mouseup', this.stopDrag);
+            document.addEventListener('touchend', this.stopDrag);
         },
         stopDrag() {
             this.dragging = false;
             document.removeEventListener('mousemove', this.drag);
-            // Отправляем значение позиции в родительский компонент или событийную шину
+            document.removeEventListener('touchmove', this.drag);
+            document.removeEventListener('mouseup', this.stopDrag);
+            document.removeEventListener('touchend', this.stopDrag);
             this.$emit('positionChange', this.handlePosition);
         },
-        drag(e) {
-            if (this.dragging) {
-                const sliderBounds = this.$el.getBoundingClientRect();
-                const position = e.clientY - sliderBounds.top; // Позиция курсора относительно регулятора
-                const height = sliderBounds.height;
-                this.handlePosition = (position / height) * 100;
-                this.handlePosition = Math.max(0, Math.min(this.handlePosition, 100)); // Ограничиваем диапазон от 0 до 100%
-            }
+        drag(event) {
+            if (!this.dragging) return;
+            const clientY = event.touches ? event.touches[0].clientY : event.clientY;
+            const sliderBounds = this.$el.getBoundingClientRect();
+            const position = clientY - sliderBounds.top;
+            const height = sliderBounds.height;
+            this.handlePosition = (position / height) * 100;
+            this.handlePosition = Math.max(0, Math.min(this.handlePosition, 100));
         }
     }
 };
@@ -44,28 +48,41 @@ export default {
 <style>
 .vertical-slider {
     height: 600px;
-    /* Примерная высота */
+    /* Default height */
     width: 1.5px;
-    /* Ещё более уменьшаем ширину для сужения слайдера */
+    /* Default width */
     background-color: #797979;
     margin-top: 0;
-    /* Убираем верхний отступ, если он есть */
     top: 0;
-    /* Поднимаем слайдер вверх */
 }
 
 .slider-handle {
     position: relative;
     border-radius: 24px;
     left: 50%;
-    /* Центрируем ручку по горизонтали */
     transform: translateX(-50%);
-    /* Смещаем ручку на половину её ширины назад, чтобы она была точно по центру */
     width: 8px;
-    /* Уменьшаем ширину ручки */
+    /* Default width */
     height: 42px;
-    /* Высота ручки */
+    /* Default height */
     background-color: #333;
     cursor: pointer;
+}
+
+/* Адаптивные стили для мобильных устройств */
+@media (max-width: 768px) {
+    .vertical-slider {
+        height: 300px;
+        /* Уменьшаем высоту для мобильных устройств */
+        width: 1.5px;
+        /* Можно адаптировать ширину, если необходимо */
+    }
+
+    .slider-handle {
+        width: 16px;
+        /* Увеличиваем ширину ручки для лучшего взаимодействия на сенсорных экранах */
+        height: 42px;
+        /* Высоту ручки можно адаптировать, если необходимо */
+    }
 }
 </style>

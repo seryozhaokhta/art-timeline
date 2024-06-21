@@ -11,6 +11,7 @@
     <AppFooter />
   </div>
 </template>
+
 <script>
 import ArtTimeline from './components/ArtTimeline.vue';
 import AppHeader from './components/AppHeader.vue';
@@ -73,12 +74,7 @@ export default {
   }
 
   .slider {
-    height: 50px;
-    /* Примерная высота для мобильных устройств */
-    width: 100%;
-    /* Ширина слайдера для мобильных устройств */
-    margin: 20px 0;
-    /* Добавляет отступы сверху и снизу от слайдера */
+    position: relative;
   }
 }
 </style>
