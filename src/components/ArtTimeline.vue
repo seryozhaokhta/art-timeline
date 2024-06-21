@@ -71,6 +71,7 @@ export default {
     name: "ArtTimeline",
     props: {
         data: Object,
+        activeEpochIndex: Number // Добавляем новый пропс для получения индекса активной эпохи
     },
     data() {
         return {
@@ -86,6 +87,14 @@ export default {
     },
     updated() {
         this.setTransitionHeight();
+    },
+    watch: {
+        // Следим за изменениями activeEpochIndex и обновляем состояние раскрытия эпох
+        activeEpochIndex(newIndex) {
+            this.data['Western-European-art-periodization'].forEach((epoch, index) => {
+                epoch.expanded = index === newIndex;
+            });
+        }
     },
     methods: {
         initializeExpansionStates() {
@@ -194,6 +203,7 @@ export default {
     background-color: #fff;
     padding: 20px 25px;
     border-radius: 8px;
+    height: auto;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 

@@ -5,17 +5,18 @@
     <AppHeader />
     <div class="content-container">
       <MapApp class="content-half map-app" />
-      <ArtTimeline :data="artData" class="content-half art-timeline" />
+      <VerticalSlider @positionChange="handlePositionChange" class="slider" />
+      <ArtTimeline :data="artData" :activeEpochIndex="activeEpochIndex" class="content-half art-timeline" />
     </div>
     <AppFooter />
   </div>
 </template>
-
 <script>
 import ArtTimeline from './components/ArtTimeline.vue';
 import AppHeader from './components/AppHeader.vue';
 import AppFooter from './components/AppFooter.vue';
-import MapApp from './components/MapApp.vue'; // Import MapApp component
+import MapApp from './components/MapApp.vue';
+import VerticalSlider from './components/VerticalSlider.vue';
 import artData from './data/art-periodization.json';
 
 export default {
@@ -24,12 +25,22 @@ export default {
     ArtTimeline,
     AppHeader,
     AppFooter,
-    MapApp // Register MapApp component
+    MapApp,
+    VerticalSlider
   },
   data() {
     return {
-      artData
+      artData,
+      activeEpochIndex: null,
     };
+  },
+  methods: {
+    handlePositionChange(position) {
+      // Преобразуем позицию слайдера в индекс активной эпохи
+      const totalEpochs = this.artData['Western-European-art-periodization'].length;
+      const index = Math.floor(position * totalEpochs / 100);
+      this.activeEpochIndex = index;
+    }
   }
 };
 </script>
@@ -38,36 +49,36 @@ export default {
 #app {
   font-family: Helvetica, sans-serif;
   color: #2c3e50;
-  margin-top: 60px;
 }
 
 .content-container {
   display: flex;
+  align-items: center;
+  /* Центрирует элементы по вертикали */
+  justify-content: center;
+  /* Центрирует элементы по горизонтали */
   width: 100%;
 }
 
 .content-half {
-  flex: 1 1 50%;
+  flex: 1;
+  /* Каждый занимает равную ширину */
   box-sizing: border-box;
 }
+
 
 @media (max-width: 768px) {
   .content-container {
     flex-direction: column;
   }
 
-  .content-half {
+  .slider {
+    height: 50px;
+    /* Примерная высота для мобильных устройств */
     width: 100%;
-  }
-
-  .map-app {
-    order: 1;
-    margin-top: 0;
-    /* Ensure map is flush against the top */
-  }
-
-  .art-timeline {
-    order: 2;
+    /* Ширина слайдера для мобильных устройств */
+    margin: 20px 0;
+    /* Добавляет отступы сверху и снизу от слайдера */
   }
 }
 </style>
