@@ -47,7 +47,7 @@ export default {
 
 <style>
 .vertical-slider {
-    height: 600px;
+    height:  900px;
     /* Default height */
     width: 1.5px;
     /* Default width */
@@ -61,7 +61,7 @@ export default {
     border-radius: 24px;
     left: 50%;
     transform: translateX(-50%);
-    width: 8px;
+    width: 17px;
     /* Default width */
     height: 42px;
     /* Default height */
@@ -72,7 +72,7 @@ export default {
 /* Адаптивные стили для мобильных устройств */
 @media (max-width: 768px) {
     .vertical-slider {
-        height: 300px;
+        height: 900px;
         /* Уменьшаем высоту для мобильных устройств */
         width: 1.5px;
         /* Можно адаптировать ширину, если необходимо */
