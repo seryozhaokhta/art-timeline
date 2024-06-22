@@ -27,23 +27,19 @@
                                         {{ subItem.title }}
                                         <span v-if="subItem.subperiodsIcon" class="icon subperiods-icon"
                                             :class="{ rotated: subItem.expanded }">
-                                            <img :src="require(`@/assets/${subItem.subperiodsIcon.replace('/src/assets/', '')}`)"
-                                                alt="Subperiods Icon">
+                                            <img :src="getIconPath('subperiodsIcon.svg')" alt="Subperiods Icon">
                                         </span>
                                         <span v-if="subItem.crisisIcon" class="icon crisis-icon"
                                             :class="{ rotated: subItem.expanded }">
-                                            <img :src="require(`@/assets/${subItem.crisisIcon.replace('/src/assets/', '')}`)"
-                                                alt="Crisis Icon">
+                                            <img :src="getIconPath('crisisIcon.svg')" alt="Crisis Icon">
                                         </span>
                                         <span v-if="subItem.transitionIcon" class="icon transition-icon"
                                             :class="{ rotated: subItem.expanded }">
-                                            <img :src="require(`@/assets/${subItem.transitionIcon.replace('/src/assets/', '')}`)"
-                                                alt="Transition Icon">
+                                            <img :src="getIconPath('transitionIcon.svg')" alt="Transition Icon">
                                         </span>
                                         <span v-if="subItem.schoolsIcon" class="icon schools-icon"
                                             :class="{ rotated: subItem.expanded }">
-                                            <img :src="require(`@/assets/${subItem.schoolsIcon.replace('/src/assets/', '')}`)"
-                                                alt="Schools Icon">
+                                            <img :src="getIconPath('schoolsIcon.svg')" alt="Schools Icon">
                                         </span>
                                     </h3>
                                     <p v-if="subItem.dates">{{ subItem.dates }}</p>
@@ -71,6 +67,12 @@
 <script>
 import VerticalSlider from './VerticalSlider.vue';
 
+// Импортируем иконки напрямую
+import subperiodsIcon from '@/assets/subperiodsIcon.svg';
+import crisisIcon from '@/assets/crisisIcon.svg';
+import transitionIcon from '@/assets/transitionIcon.svg';
+import schoolsIcon from '@/assets/schoolsIcon.svg';
+
 export default {
     name: 'ArtTimeline',
     components: {
@@ -94,7 +96,7 @@ export default {
             const totalEpochs = this.data['Western-European-art-periodization'].length;
             const index = Math.floor(position * totalEpochs / 100);
             this.activeEpochIndex = index;
-            this.activeTag = null; // Reset active tag when the slider changes
+            this.activeTag = null;
             this.initializeExpansionStates();
         },
         initializeExpansionStates() {
@@ -119,25 +121,16 @@ export default {
         },
         changePeriodization(tag, epoch) {
             this.activeTag = tag;
-            // Проверка на существование тегов в эпохе
             if (epoch.tags && epoch.tags.includes(tag)) {
-                // Если теги существуют и содержат выбранный тег, то раскрываем эпоху
                 epoch.expanded = true;
-                // Проверка на существование subItems перед итерацией
                 if (epoch.subItems && Array.isArray(epoch.subItems)) {
                     epoch.subItems.forEach(subItem => {
-                        // Раскрытие всех subItems
                         subItem.expanded = true;
                     });
                 }
             }
-
-            // Дополнительная проверка для случая, когда разделение по конкретному тегу
-            // (например, у эпохи "Возрождение" могут быть разные subItems для разных стран)
-            // Необходимо проверить, действительно ли существуют данные по этому тегу в эпохе
             if (epoch[this.activeTag] && Array.isArray(epoch[this.activeTag])) {
                 epoch[this.activeTag].forEach(tagSpecificSubItem => {
-                    // Раскрытие всех соответствующих subItems
                     tagSpecificSubItem.expanded = true;
                 });
             }
@@ -147,6 +140,22 @@ export default {
                 return epoch[this.activeTag];
             }
             return epoch.subItems;
+        },
+        getIconPath(fileName) {
+            // Переключение между именами файлов для возврата соответствующих импортированных изображений
+            switch (fileName) {
+                case 'subperiodsIcon.svg':
+                    return subperiodsIcon;
+                case 'crisisIcon.svg':
+                    return crisisIcon;
+                case 'transitionIcon.svg':
+                    return transitionIcon;
+                case 'schoolsIcon.svg':
+                    return schoolsIcon;
+                default:
+                    console.error('No path found for icon:', fileName);
+                    return '';
+            }
         }
     }
 };
@@ -285,5 +294,9 @@ export default {
 .expand-leave-to {
     opacity: 0;
     transform: translateY(-10px);
+}
+
+.icon img {
+    filter: invert(100%);
 }
 </style>
