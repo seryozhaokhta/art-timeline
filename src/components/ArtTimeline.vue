@@ -2,18 +2,19 @@
 
 <template>
     <div class="timeline" @click.self="closeAllEpochs">
+        <VerticalSlider @positionChange="handlePositionChange" class="slider" />
         <div class="epochs-container">
-            <div v-for="epoch in data['Western-European-art-periodization']" :key="epoch.id" class="epoch">
+            <div v-for="(epoch, index) in data['Western-European-art-periodization']" :key="epoch.id" class="epoch">
                 <div class="epoch-line">
                     <div class="circle"></div>
                     <div class="line"></div>
                 </div>
-                <div class="epoch-content">
-                    <div class="epoch-header" @click="toggleExpand(epoch)">
+                <div class="epoch-content" :class="{ 'active-epoch': epoch.expanded }">
+                    <div class="epoch-header" @click.stop="toggleExpand(epoch, index)">
                         <h2>{{ epoch.epoch }}</h2>
                     </div>
                     <transition name="expand">
-                        <div v-show="epoch.expandable && epoch.expanded" class="sub-items">
+                        <div v-show="epoch.expanded" class="sub-items">
                             <div v-if="epoch.tags" class="tags">
                                 <span v-for="tag in epoch.tags" :key="tag" class="tag"
                                     @click.stop="changePeriodization(tag, epoch)">
@@ -22,7 +23,7 @@
                             </div>
                             <div class="sub-items-content">
                                 <div v-for="subItem in getActiveSubItems(epoch)" :key="subItem.title" class="sub-item">
-                                    <h3 @click="toggleNestedExpand(subItem)">
+                                    <h3 @click.stop="toggleNestedExpand(subItem)">
                                         {{ subItem.title }}
                                         <span v-if="subItem.subperiodsIcon" class="icon subperiods-icon"
                                             :class="{ rotated: subItem.expanded }">
@@ -50,7 +51,8 @@
                                     <transition name="expand">
                                         <ul v-if="subItem.expandable && subItem.expanded" class="nested-sub-items">
                                             <li v-for="nestedItem in subItem[subItem.type]" :key="nestedItem.title">
-                                                <h3 @click="toggleNestedExpand(nestedItem)">{{ nestedItem.title }}</h3>
+                                                <h3 @click.stop="toggleNestedExpand(nestedItem)">{{ nestedItem.title }}
+                                                </h3>
                                                 <p v-if="nestedItem.dates">{{ nestedItem.dates }}</p>
                                                 <p :class="['trend', nestedItem.trend]">{{ nestedItem.trend }}</p>
                                             </li>
@@ -67,86 +69,86 @@
 </template>
 
 <script>
+import VerticalSlider from './VerticalSlider.vue';
+
 export default {
-    name: "ArtTimeline",
+    name: 'ArtTimeline',
+    components: {
+        VerticalSlider
+    },
     props: {
         data: Object,
-        activeEpochIndex: Number // Добавляем новый пропс для получения индекса активной эпохи
     },
     data() {
         return {
             activeTag: null,
             activeEpoch: null,
+            activeEpochIndex: null,
         };
     },
     created() {
         this.initializeExpansionStates();
     },
-    mounted() {
-        this.setTransitionHeight();
-    },
-    updated() {
-        this.setTransitionHeight();
-    },
-    watch: {
-        // Следим за изменениями activeEpochIndex и обновляем состояние раскрытия эпох
-        activeEpochIndex(newIndex) {
-            this.data['Western-European-art-periodization'].forEach((epoch, index) => {
-                epoch.expanded = index === newIndex;
-            });
-        }
-    },
     methods: {
+        handlePositionChange(position) {
+            const totalEpochs = this.data['Western-European-art-periodization'].length;
+            const index = Math.floor(position * totalEpochs / 100);
+            this.activeEpochIndex = index;
+            this.activeTag = null; // Reset active tag when the slider changes
+            this.initializeExpansionStates();
+        },
         initializeExpansionStates() {
-            this.data['Western-European-art-periodization'].forEach(epoch => {
-                if (typeof epoch.expanded === 'undefined') {
-                    this.$set(epoch, 'expanded', false);
-                }
-                if (epoch.subItems) {
-                    epoch.subItems.forEach(subItem => {
-                        if (typeof subItem.expanded === 'undefined') {
-                            this.$set(subItem, 'expanded', false);
-                        }
-                        if (subItem[this.activeTag]) {
-                            subItem[this.activeTag].forEach(nestedItem => {
-                                if (typeof nestedItem.expanded === 'undefined') {
-                                    this.$set(nestedItem, 'expanded', false);
-                                }
-                            });
-                        }
-                    });
+            this.data['Western-European-art-periodization'].forEach((epoch, index) => {
+                epoch.expanded = (index === this.activeEpochIndex);
+                if (epoch.expanded && this.activeTag) {
+                    this.changePeriodization(this.activeTag, epoch);
                 }
             });
         },
-        setTransitionHeight() {
-            this.$nextTick(() => {
-                document.querySelectorAll('.sub-items').forEach(el => {
-                    if (el.scrollHeight > 0) {
-                        el.style.setProperty('--sub-items-max-height', `${el.scrollHeight}px`);
-                    }
-                });
-            });
-        },
-        toggleExpand(item) {
-            this.closeAllEpochs();
-            item.expanded = !item.expanded;
-        },
-        closeAllEpochs() {
-            this.data['Western-European-art-periodization'].forEach(epoch => {
-                epoch.expanded = false;
-            });
+        toggleExpand(epoch, index) {
+            epoch.expanded = !epoch.expanded;
+            if (!epoch.expanded) {
+                this.activeEpochIndex = null;
+                this.activeTag = null;
+            } else {
+                this.activeEpochIndex = index;
+            }
         },
         toggleNestedExpand(item) {
             item.expanded = !item.expanded;
         },
         changePeriodization(tag, epoch) {
             this.activeTag = tag;
-            this.activeEpoch = epoch.id;
+            // Проверка на существование тегов в эпохе
+            if (epoch.tags && epoch.tags.includes(tag)) {
+                // Если теги существуют и содержат выбранный тег, то раскрываем эпоху
+                epoch.expanded = true;
+                // Проверка на существование subItems перед итерацией
+                if (epoch.subItems && Array.isArray(epoch.subItems)) {
+                    epoch.subItems.forEach(subItem => {
+                        // Раскрытие всех subItems
+                        subItem.expanded = true;
+                    });
+                }
+            }
+
+            // Дополнительная проверка для случая, когда разделение по конкретному тегу
+            // (например, у эпохи "Возрождение" могут быть разные subItems для разных стран)
+            // Необходимо проверить, действительно ли существуют данные по этому тегу в эпохе
+            if (epoch[this.activeTag] && Array.isArray(epoch[this.activeTag])) {
+                epoch[this.activeTag].forEach(tagSpecificSubItem => {
+                    // Раскрытие всех соответствующих subItems
+                    tagSpecificSubItem.expanded = true;
+                });
+            }
         },
         getActiveSubItems(epoch) {
-            return this.activeTag && this.activeEpoch === epoch.id ? epoch[this.activeTag] : epoch.subItems;
+            if (this.activeTag && epoch[this.activeTag]) {
+                return epoch[this.activeTag];
+            }
+            return epoch.subItems;
         }
-    },
+    }
 };
 </script>
 
@@ -217,112 +219,71 @@ export default {
     background-color: transparent;
 }
 
-.epoch-header h2 {
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: #333;
-    margin: 0;
-}
-
-.expand-enter-active,
-.expand-leave-active {
-    transition: max-height 0.5s ease, opacity 0.5s ease;
-}
-
-.expand-enter,
-.expand-leave-to
-
-/* .expand-leave-active in <2.1.8 */
-    {
-    max-height: 0;
-    opacity: 0;
-    overflow: hidden;
-}
-
 .sub-items {
-    text-align: left;
-    margin-top: 20px;
-    max-height: var(--sub-items-max-height);
     overflow: hidden;
+    transition: max-height 0.3s ease;
+    max-height: 0;
 }
 
-.tags {
+.sub-items .tags {
     margin-bottom: 10px;
 }
 
 .tag {
     display: inline-block;
     padding: 5px 10px;
+    background-color: #ddd;
+    color: #333;
+    border-radius: 15px;
     margin-right: 5px;
-    border-radius: 5px;
-    background-color: #f2f2f2;
+    margin-bottom: 5px;
     cursor: pointer;
 }
 
 .tag:hover {
-    background-color: #ddd;
+    background-color: #ccc;
 }
 
-.sub-items-content .sub-item {
-    border-radius: 6px;
-    margin-bottom: 10px;
+.sub-item {
+    margin-bottom: 20px;
 }
 
-.sub-items-content .sub-item h3 {
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin: 0 0 5px 0;
-}
-
-.sub-items-content .sub-item .icon {
-    display: inline-flex;
+.sub-item h3 {
+    margin: 0;
+    cursor: pointer;
+    display: flex;
     align-items: center;
-    margin-left: 5px;
+}
+
+.sub-item .icon {
+    margin-left: 10px;
     transition: transform 0.3s ease;
 }
 
-.sub-items-content .sub-item .icon img {
-    width: 16px;
-    height: auto;
-    filter: invert(1);
-}
-
-.sub-items-content .sub-item .icon.rotated {
-    transform: rotate(90deg);
-}
-
-.sub-items-content .sub-item p {
-    margin: 0;
-    font-size: 0.9rem;
-    color: #555;
-}
-
-.sub-items-content .sub-item p.dates {
-    color: #888;
-}
-
-.sub-items-content .sub-item .trend {
-    font-weight: bold;
-}
-
-.sub-items-content .sub-item .trend.rise {
-    color: green;
-}
-
-.sub-items-content .sub-item .trend.decline {
-    color: red;
+.rotated {
+    transform: rotate(180deg);
 }
 
 .nested-sub-items {
-    list-style: none;
-    padding: 0;
+    margin-top: 10px;
 }
 
 .nested-sub-items li {
-    margin-left: 10px;
+    margin-bottom: 10px;
 }
 
-.nested-sub-items li h3 {
-    cursor: pointer;
+.active-epoch .sub-items {
+    max-height: var(--sub-items-max-height);
+}
+
+.expand-enter-active,
+.expand-leave-active {
+    transition: all 0.3s ease;
+}
+
+.expand-enter-from,
+.expand-leave-to {
+    opacity: 0;
+    transform: translateY(-10px);
 }
 </style>
