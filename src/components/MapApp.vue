@@ -4,18 +4,28 @@
     <div class="map-container">
         <div class="map-mask">
             <img :src="worldMap" alt="World Map" class="world-map" />
+            <GridOverlay :points="points" />
         </div>
     </div>
 </template>
 
 <script>
 import worldMap from '@/assets/World_map_blank_without_borders.svg';
+import GridOverlay from './GridOverlay.vue';
 
 export default {
     name: 'MapApp',
+    components: {
+        GridOverlay
+    },
     data() {
         return {
-            worldMap
+            worldMap,
+            points: [
+                { id: 1, x: 10, y: 20 },
+                { id: 2, x: 30, y: 40 },
+                { id: 3, x: 50, y: 60 }
+            ]
         };
     }
 };
@@ -30,14 +40,14 @@ export default {
     height: 100%;
     padding: 20px;
     background-color: rgba(128, 128, 128, 0.103);
+    position: relative;
+    /* Ensure the container is positioned relative for absolute positioning inside */
 }
 
 .map-mask {
     width: 700px;
-    /* Define the size of the mask */
     height: 700px;
     overflow: hidden;
-    /* Ensure the image does not overflow the mask */
     position: relative;
     border-radius: 24px;
 }
@@ -45,15 +55,10 @@ export default {
 .world-map {
     position: absolute;
     top: 90%;
-    /* Adjust to position the map */
     left: -1%;
-    /* Adjust to position the map */
     transform: scale(5.5);
-    /* Zoom into the map */
     transform-origin: 50% 50%;
-    /* Center the zoom on the map */
     width: 100%;
-    /* Ensure the map covers the entire area */
     height: auto;
 }
 </style>
