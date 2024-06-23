@@ -52,15 +52,19 @@ export default {
 }
 
 .map-mask {
-    width: 100%;
-    height: 50vh;
-    /* Используйте высоту вьюпорта для адаптивности */
+    width: 900px;
+    height: 450px;
     overflow: hidden;
     position: relative;
     border-radius: 24px;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.world-map {
+    transform: scale(4) translateX(-10%) translateY(20%);
+    transform-origin: center center;
 }
 
 @media (max-width: 768px) {
@@ -71,8 +75,8 @@ export default {
     }
 
     .world-map {
-        /* Мягкое масштабирование и смещение для мобильных устройств */
-        transform: scale(3) translateX(-5%) translateY(10%);
+        transform: scale(2.5) translateX(-20%) translateY(10%);
+        transform-origin: center center;
     }
 }
 </style>
