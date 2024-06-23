@@ -64,11 +64,6 @@ export default {
 
 .world-map {
     transform: translate(0, 35px) scale(1);
-    transition: transform 0.5s ease;
-}
-
-.world-map:hover {
-    transform: translate(0, 450px) scale(4);
 }
 
 @media (max-width: 768px) {
@@ -80,11 +75,6 @@ export default {
         transform: translate(-50px, 200px) scale(6);
         max-width: 100%;
         max-height: none;
-    }
-
-    /* Отменяем увеличение при наведении на мобильных устройствах */
-    .world-map:hover {
-        transform: translate(-50px, 200px) scale(6);
     }
 }
 </style>
