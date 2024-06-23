@@ -4,7 +4,9 @@
     <div class="map-container">
         <div class="map-mask">
             <svg class="world-map" viewBox="0 0 1000 500">
-                <image href="@/assets/World_map_blank_without_borders.svg" width="100%" height="100%" />
+                <!-- Используем переменную для фоновой карты -->
+                <image :href="worldMap" width="100%" height="100%" />
+                <!-- Используем переменную для иконок точек -->
                 <image v-for="point in points" :key="point.id" :href="pointIcon" :x="point.x" :y="point.y" width="4"
                     height="4" />
             </svg>
@@ -13,13 +15,16 @@
 </template>
 
 <script>
-import pointIcon from '@/assets/POINT.svg'; // Путь к вашему SVG-изображению точки
+// Импортируем изображения напрямую
+import worldMap from '@/assets/World_map_blank_without_borders.svg';
+import pointIcon from '@/assets/POINT.svg';
 
 export default {
     name: 'MapApp',
     data() {
         return {
-            pointIcon,
+            worldMap, // Добавляем изображение карты как переменную данных
+            pointIcon, // Иконка точки теперь также переменная данных
             points: [
                 // Координаты для изображений точек в системе координат SVG
                 { id: 1, x: 537, y: 141 },
@@ -45,9 +50,7 @@ export default {
 
 .map-mask {
     width: 900px;
-    /* Исходный размер для больших экранов */
     height: 900px;
-    /* Исходный размер для больших экранов */
     overflow: hidden;
     position: relative;
     border-radius: 24px;
@@ -61,7 +64,6 @@ export default {
     transform-origin: 50% 50%;
 }
 
-/* Медиа-запросы для адаптации к меньшим экранам */
 @media (max-width: 768px) {
     .map-mask {
         border-radius: 14px;
