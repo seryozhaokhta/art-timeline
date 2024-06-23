@@ -63,15 +63,16 @@ export default {
     align-items: center;
 }
 
-.world-map {
-    /* Базовые трансформации для мобильных устройств */
-    transform: scale(2) translateX(-20%) translateY(10%);
-}
+@media (max-width: 768px) {
+    .map-mask {
+        width: 100%;
+        height: auto;
+        border-radius: 14px;
+    }
 
-@media (min-width: 769px) {
     .world-map {
-        /* Трансформации для десктопных версий */
-        transform: scale(4) translateX(-10%) translateY(20%);
+        /* Мягкое масштабирование и смещение для мобильных устройств */
+        transform: scale(3) translateX(-5%) translateY(10%);
     }
 }
 </style>
