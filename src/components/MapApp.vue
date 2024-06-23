@@ -66,13 +66,12 @@ export default {
 @media (max-width: 768px) {
     .map-mask {
         border-radius: 14px;
-        width: 350px;
-        height: 300px;
+        width: 100%;
+        height: auto;
     }
 
     .world-map {
         transform: scale(8) translateX(-5%) translateY(20%);
-        z-index: 1000;
     }
 }
 </style>
