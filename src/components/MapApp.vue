@@ -81,5 +81,10 @@ export default {
         max-width: 100%;
         max-height: none;
     }
+
+    /* Отменяем увеличение при наведении на мобильных устройствах */
+    .world-map:hover {
+        transform: translate(-50px, 200px) scale(6);
+    }
 }
 </style>
