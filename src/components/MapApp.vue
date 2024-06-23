@@ -61,7 +61,6 @@ export default {
 
 .world-map {
     transform: scale(4) translateX(-10%) translateY(20%);
-    transform-origin: 50% 50%;
 }
 
 @media (max-width: 768px) {
@@ -73,7 +72,7 @@ export default {
 
     .world-map {
         transform: scale(8) translateX(-5%) translateY(20%);
-        transform-origin: 50% 50%;
+        z-index: 1000;
     }
 }
 </style>
