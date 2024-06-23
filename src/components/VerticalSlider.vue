@@ -2,7 +2,9 @@
 
 <template>
     <div class="vertical-slider" @mousedown="startDrag" @touchstart="startDrag">
-        <div class="slider-bar"></div>
+        <div class="slider-bar">
+            <div v-for="epoch in epochs" :key="epoch" class="epoch-marker" :style="{ top: epoch + '%' }"></div>
+        </div>
         <div class="slider-handle" :style="{ top: handlePosition + '%' }"></div>
     </div>
 </template>
@@ -13,6 +15,7 @@ export default {
         return {
             dragging: false,
             handlePosition: 0,
+            epochs: [0, 20, 40, 60, 80, 95] // Позиции эпох в процентах
         };
     },
     methods: {
@@ -30,6 +33,7 @@ export default {
             document.removeEventListener('touchmove', this.drag);
             document.removeEventListener('mouseup', this.stopDrag);
             document.removeEventListener('touchend', this.stopDrag);
+            this.snapToNearestEpoch();
             this.$emit('positionChange', this.handlePosition);
         },
         drag(event) {
@@ -40,6 +44,20 @@ export default {
             const height = sliderBounds.height;
             this.handlePosition = (position / height) * 100;
             this.handlePosition = Math.max(0, Math.min(this.handlePosition, 100));
+        },
+        snapToNearestEpoch() {
+            let nearestEpoch = this.epochs[0];
+            let minDistance = Math.abs(this.handlePosition - this.epochs[0]);
+
+            for (let i = 1; i < this.epochs.length; i++) {
+                const distance = Math.abs(this.handlePosition - this.epochs[i]);
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    nearestEpoch = this.epochs[i];
+                }
+            }
+
+            this.handlePosition = nearestEpoch;
         }
     }
 };
@@ -47,42 +65,38 @@ export default {
 
 <style>
 .vertical-slider {
-    height:  900px;
-    /* Default height */
+    position: relative;
+    height: 800px;
     width: 1.5px;
-    /* Default width */
     background-color: #797979;
     margin-top: 0;
     top: 0;
 }
 
+.slider-bar {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.epoch-marker {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 10px;
+    height: 10px;
+    background-color: #FF6347;
+    border-radius: 50%;
+}
+
 .slider-handle {
-    position: relative;
+    position: absolute;
     border-radius: 24px;
     left: 50%;
     transform: translateX(-50%);
     width: 17px;
-    /* Default width */
     height: 42px;
-    /* Default height */
     background-color: #333;
     cursor: pointer;
-}
-
-/* Адаптивные стили для мобильных устройств */
-@media (max-width: 768px) {
-    .vertical-slider {
-        height: 900px;
-        /* Уменьшаем высоту для мобильных устройств */
-        width: 1.5px;
-        /* Можно адаптировать ширину, если необходимо */
-    }
-
-    .slider-handle {
-        width: 16px;
-        /* Увеличиваем ширину ручки для лучшего взаимодействия на сенсорных экранах */
-        height: 42px;
-        /* Высоту ручки можно адаптировать, если необходимо */
-    }
 }
 </style>
