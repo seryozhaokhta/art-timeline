@@ -52,9 +52,9 @@ export default {
 }
 
 .map-mask {
-    width: 900px;
-    height: 450px;
-    /* Установите фиксированные размеры для маски */
+    width: 100%;
+    height: 50vh;
+    /* Используйте высоту вьюпорта для адаптивности */
     overflow: hidden;
     position: relative;
     border-radius: 24px;
@@ -64,19 +64,14 @@ export default {
 }
 
 .world-map {
-    transform: scale(4) translateX(-10%) translateY(20%);
+    /* Базовые трансформации для мобильных устройств */
+    transform: scale(2) translateX(-20%) translateY(10%);
 }
 
-@media (max-width: 768px) {
-    .map-mask {
-        width: 100%;
-        height: auto;
-        border-radius: 14px;
-    }
-
+@media (min-width: 769px) {
     .world-map {
-        /* Адаптируйте трансформацию для мобильных устройств при необходимости */
-        transform: scale(2) translateX(-20%) translateY(10%);
+        /* Трансформации для десктопных версий */
+        transform: scale(4) translateX(-10%) translateY(20%);
     }
 }
 </style>
