@@ -1,11 +1,9 @@
 <!-- components/MapApp.vue -->
 
-<!-- components/MapApp.vue -->
-
 <template>
     <div class="map-container">
         <div class="map-mask">
-            <svg class="world-map" viewBox="0 0 1000 500">
+            <svg class="world-map" viewBox="0 0 500 250">
                 <!-- Используем переменную для фоновой карты -->
                 <image :href="worldMap" width="100%" height="100%" />
                 <!-- Используем переменную для иконок точек -->
