@@ -165,7 +165,7 @@ export default {
 .timeline {
     display: flex;
     align-items: flex-start;
-    width: 80%;
+    max-width: 25%;
     margin: 50px auto;
     padding: 30px;
     background-color: #f8f8f8;
@@ -216,16 +216,19 @@ export default {
     border-radius: 8px;
     height: auto;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-}
-
-.epoch-header {
-    text-align: left;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+    width: 50%;
 }
 
 .epoch-header:hover {
     background-color: transparent;
+}
+
+h2 {
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 100;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 .sub-items {
@@ -254,11 +257,13 @@ export default {
 }
 
 .sub-item {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    /* Было 20px */
 }
 
 .sub-item h3 {
     margin: 0;
+    margin-bottom: 0px;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -270,7 +275,7 @@ export default {
 }
 
 .rotated {
-    transform: rotate(180deg);
+    transform: rotate(90deg);
 }
 
 .nested-sub-items {
@@ -278,7 +283,8 @@ export default {
 }
 
 .nested-sub-items li {
-    margin-bottom: 10px;
+    margin-bottom: 5px;
+    /* Было 10px */
 }
 
 .active-epoch .sub-items {
@@ -298,5 +304,37 @@ export default {
 
 .icon img {
     filter: invert(100%);
+}
+
+/* Подтянуть элемент p вверх */
+.sub-item p {
+    margin-top: 0;
+    padding-top: 0;
+    position: relative;
+    top: -5px;
+    /* Измените значение по своему усмотрению */
+}
+
+/* Медиа-запрос для устройств с максимальной шириной 768px */
+@media (max-width: 768px) {
+    .timeline {
+        display: flex;
+        align-items: flex-start;
+        max-width: 100%;
+        margin: 50px auto;
+        padding: 30px;
+        background-color: #f8f8f8;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .epoch-content {
+        background-color: #fff;
+        padding: 20px 25px;
+        border-radius: 8px;
+        height: auto;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        width: 100%;
+    }
 }
 </style>
