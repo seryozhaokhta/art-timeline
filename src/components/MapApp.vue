@@ -76,7 +76,7 @@ export default {
     }
 
     .world-map {
-        transform: translate(0, 35px);
+        transform: translate(0, 55px);
         max-width: 100%;
         /* Увеличиваем карту, чтобы она занимала больше места на экране */
         max-height: none;
