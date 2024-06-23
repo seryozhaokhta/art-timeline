@@ -83,7 +83,7 @@ export default {
     transform: translateX(-50%);
     width: 10px;
     height: 10px;
-    background-color: #000000;
+    background-color: #ff0000;
     border: 2px solid white;
     border-radius: 50%;
 }
