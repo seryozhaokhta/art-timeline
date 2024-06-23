@@ -45,14 +45,13 @@ export default {
     height: 100%;
     padding: 20px;
     background-color: rgba(128, 128, 128, 0.103);
-    position: relative;
+
 }
 
 .map-mask {
-    width: 900px;
-    height: 900px;
+    width: 100%;
+    height: auto;
     overflow: hidden;
-    position: relative;
     border-radius: 24px;
     display: flex;
     justify-content: center;
@@ -64,10 +63,9 @@ export default {
 }
 
 @media (max-width: 768px) {
-    .map-mask {
-        border-radius: 14px;
-        width: 100%;
-        height: auto;
+    .map-container {
+        height: 20%;
+
     }
 
     .world-map {
