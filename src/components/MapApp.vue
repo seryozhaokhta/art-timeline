@@ -3,7 +3,7 @@
 <template>
     <div class="map-container">
         <div class="map-mask">
-            <svg class="world-map" viewBox="0 0 500 250">
+            <svg class="world-map" :viewBox="viewBox">
                 <!-- Используем переменную для фоновой карты -->
                 <image :href="worldMap" width="100%" height="100%" />
                 <!-- Используем переменную для иконок точек -->
@@ -25,18 +25,31 @@ export default {
         return {
             worldMap, // Добавляем изображение карты как переменную данных
             pointIcon, // Иконка точки теперь также переменная данных
-            points: [
-                // Координаты для изображений точек в системе координат SVG
-                { id: 1, x: 537, y: 141 },
-                { id: 2, x: 537, y: 136 },
-                { id: 3, x: 529, y: 132 }
-            ]
+            points: [],
+            viewBox: '0 0 1000 500', // Начальное значение viewBox
         };
+    },
+    mounted() {
+        this.adjustViewBoxForMobile();
+        window.addEventListener('resize', this.adjustViewBoxForMobile);
+    },
+    beforeUnmount() { // Здесь было изменено с beforeDestroy на beforeUnmount
+        window.removeEventListener('resize', this.adjustViewBoxForMobile);
+    },
+    methods: {
+        adjustViewBoxForMobile() {
+            if (window.innerWidth <= 768) {
+                // Уменьшаем область viewBox для мобильных устройств
+                this.viewBox = '250 125 500 250';
+            } else {
+                // Возвращаем к исходному значению для десктопов
+                this.viewBox = '0 0 1000 500';
+            }
+        },
     },
     computed: {
         processedPoints() {
-            // Здесь может быть логика для обработки точек, например, фильтрация или сортировка
-            return this.points; // Пока просто возвращаем исходный массив
+            return this.points;
         }
     }
 };
