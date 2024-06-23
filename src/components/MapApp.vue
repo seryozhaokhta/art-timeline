@@ -3,10 +3,9 @@
 <template>
     <div class="map-container">
         <div class="map-mask">
-            <svg class="world-map" :viewBox="viewBox"
-                :style="{ transform: `translate(${translateX}px, ${translateY}px)` }">
+            <svg class="world-map" viewBox="0 0 1000 500">
                 <!-- Используем переменную для фоновой карты -->
-                <image :href="worldMap" />
+                <image :href="worldMap" width="100%" height="100%" />
                 <!-- Используем переменную для иконок точек -->
                 <image v-for="point in processedPoints" :key="point.id" :href="pointIcon" :x="point.x" :y="point.y"
                     width="4" height="4" />
@@ -26,31 +25,18 @@ export default {
         return {
             worldMap, // Добавляем изображение карты как переменную данных
             pointIcon, // Иконка точки теперь также переменная данных
-            points: [],
-            viewBox: '0 0 1000 500', // Начальное значение viewBox
+            points: [
+                // Координаты для изображений точек в системе координат SVG
+                { id: 1, x: 537, y: 141 },
+                { id: 2, x: 537, y: 136 },
+                { id: 3, x: 529, y: 132 }
+            ]
         };
-    },
-    mounted() {
-        this.adjustViewBoxForMobile();
-        window.addEventListener('resize', this.adjustViewBoxForMobile);
-    },
-    beforeUnmount() { // Здесь было изменено с beforeDestroy на beforeUnmount
-        window.removeEventListener('resize', this.adjustViewBoxForMobile);
-    },
-    methods: {
-        adjustViewBoxForMobile() {
-            if (window.innerWidth <= 768) {
-                // Уменьшаем область viewBox для мобильных устройств
-                this.viewBox = '250 125 500 250';
-            } else {
-                // Возвращаем к исходному значению для десктопов
-                this.viewBox = '0 0 1000 500';
-            }
-        },
     },
     computed: {
         processedPoints() {
-            return this.points;
+            // Здесь может быть логика для обработки точек, например, фильтрация или сортировка
+            return this.points; // Пока просто возвращаем исходный массив
         }
     }
 };
@@ -62,39 +48,41 @@ export default {
     justify-content: center;
     align-items: center;
     width: 100%;
-    /* Занимает всю ширину */
-    height: 100vh;
-    /* Занимает всю высоту видимой части экрана */
+    height: 100%;
     padding: 20px;
-    /* Добавляем немного отступа */
-    box-sizing: border-box;
-    /* Гарантируем, что padding не изменит размеры */
+    background-color: rgba(128, 128, 128, 0.103);
+    position: relative;
 }
 
 .map-mask {
     width: 100%;
-    /* Адаптивная ширина */
-    max-width: 900px;
-    /* Максимальная ширина для больших экранов */
-    height: auto;
-    /* Автоматическая высота для сохранения пропорций */
-    aspect-ratio: 16 / 9;
-    /* Соотношение сторон, например, 16:9 */
+    max-height: 100vh;
     overflow: hidden;
-    /* Скрываем части карты, выходящие за пределы маски */
     position: relative;
     border-radius: 24px;
-    /* Скругляем углы для красивого вида */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    /* Добавляем немного тени для глубины */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .world-map {
     width: 100%;
-    /* Карта занимает всю ширину маски */
-    height: 100%;
-    /* Карта занимает всю высоту маски */
-    object-fit: cover;
-    /* Гарантируем, что карта покрывает всю маску, сохраняя пропорции */
+    height: auto;
+    max-width: 900px;
+    max-height: 450px;
+}
+
+/* Медиа-запрос для устройств с максимальной шириной 768px */
+@media (max-width: 768px) {
+    .map-mask {
+        border-radius: 14px;
+    }
+
+    .world-map {
+        max-width: 100%;
+        /* Увеличиваем карту, чтобы она занимала больше места на экране */
+        max-height: none;
+        /* Убираем ограничение по высоте */
+    }
 }
 </style>
