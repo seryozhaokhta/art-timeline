@@ -7,8 +7,8 @@
                 <!-- Используем переменную для фоновой карты -->
                 <image :href="worldMap" width="100%" height="100%" />
                 <!-- Используем переменную для иконок точек -->
-                <image v-for="point in points" :key="point.id" :href="pointIcon" :x="point.x" :y="point.y" width="4"
-                    height="4" />
+                <image v-for="point in processedPoints" :key="point.id" :href="pointIcon" :x="point.x" :y="point.y"
+                    width="4" height="4" />
             </svg>
         </div>
     </div>
@@ -33,6 +33,12 @@ export default {
             ]
         };
     },
+    computed: {
+        processedPoints() {
+            // Здесь может быть логика для обработки точек, например, фильтрация или сортировка
+            return this.points; // Пока просто возвращаем исходный массив
+        }
+    }
 };
 </script>
 
@@ -45,13 +51,14 @@ export default {
     height: 100%;
     padding: 20px;
     background-color: rgba(128, 128, 128, 0.103);
-
+    position: relative;
 }
 
 .map-mask {
-    width: 100%;
-    height: auto;
+    max-width: 100%;
+    max-height: 100vh;
     overflow: hidden;
+    position: relative;
     border-radius: 24px;
     display: flex;
     justify-content: center;
@@ -59,17 +66,16 @@ export default {
 }
 
 .world-map {
-    transform: scale(4) translateX(-10%) translateY(20%);
+    width: 100%;
+    height: auto;
+    max-width: 900px;
+    max-height: 450px;
+    /* Половина изначальной высоты viewBox, чтобы сохранить аспект */
 }
 
 @media (max-width: 768px) {
-    .map-container {
-        height: 20%;
-
-    }
-
-    .world-map {
-        transform: scale(8) translateX(-5%) translateY(20%);
+    .map-mask {
+        border-radius: 14px;
     }
 }
 </style>
