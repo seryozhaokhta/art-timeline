@@ -73,6 +73,7 @@ export default {
 
     .world-map {
         transform: scale(8) translateX(-5%) translateY(20%);
+        transform-origin: 50% 50%;
     }
 }
 </style>
