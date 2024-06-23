@@ -65,14 +65,15 @@ export default {
 }
 
 .world-map {
-    transform: translate(0, 35px);
-    scale: 1;
+    transform: translate(50px, 135px);
+    scale: 2;
 }
 
 /* Медиа-запрос для устройств с максимальной шириной 768px */
 @media (max-width: 768px) {
     .map-mask {
         border-radius: 14px;
+        height: 50vh;
     }
 
     .world-map {

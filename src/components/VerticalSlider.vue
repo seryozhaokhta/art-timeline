@@ -65,12 +65,10 @@ export default {
 
 <style>
 .vertical-slider {
-    position: relative;
+    position: absolute;
     height: 900px;
     width: 1.5px;
     background-color: #797979;
-    margin-top: 0;
-    top: 0;
 }
 
 .slider-bar {
