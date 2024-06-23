@@ -165,7 +165,7 @@ export default {
 .timeline {
     display: flex;
     align-items: flex-start;
-    max-width: 25%;
+    max-width: 20%;
     margin: 50px auto;
     padding: 30px;
     background-color: #f8f8f8;
@@ -194,29 +194,13 @@ export default {
     margin-right: 10px;
 }
 
-.circle {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background-color: #ddd;
-    margin: auto 0;
-    transform: translateX(-50%);
-    margin-bottom: 5px;
-}
-
-.line {
-    width: 1px;
-    flex-grow: 1;
-    background-color: #ddd;
-}
-
 .epoch-content {
     background-color: #fff;
     padding: 20px 25px;
     border-radius: 8px;
     height: auto;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-    width: 50%;
+    width: 70%;
 }
 
 .epoch-header:hover {

@@ -15,7 +15,7 @@ export default {
         return {
             dragging: false,
             handlePosition: 0,
-            epochs: [0, 20, 40, 60, 80, 95] // Позиции эпох в процентах
+            epochs: [1, 20, 40, 60, 80, 95] // Позиции эпох в процентах
         };
     },
     methods: {
@@ -66,7 +66,7 @@ export default {
 <style>
 .vertical-slider {
     position: relative;
-    height: 800px;
+    height: 900px;
     width: 1.5px;
     background-color: #797979;
     margin-top: 0;
@@ -85,7 +85,8 @@ export default {
     transform: translateX(-50%);
     width: 10px;
     height: 10px;
-    background-color: #FF6347;
+    background-color: #000000;
+    border: 2px solid white;
     border-radius: 50%;
 }
 
