@@ -3,7 +3,11 @@
 <template>
     <div class="vertical-slider" @mousedown="startDrag" @touchstart="startDrag">
         <div class="slider-bar">
-            <div v-for="epoch in epochs" :key="epoch" class="epoch-marker" :style="{ top: epoch + '%' }"></div>
+            <div v-for="(epoch, index) in epochs" :key="epoch.value" class="epoch-marker"
+                :style="{ top: calculateEpochPosition(epoch, index) + '%' }">
+                <div v-for="subItem in epoch.subItems" :key="subItem" class="subitem-marker"
+                    :style="{ top: subItemOffset(epoch, subItem, index) + '%' }"></div>
+            </div>
         </div>
         <div class="slider-handle" :style="{ top: handlePosition + '%' }"></div>
     </div>
@@ -15,7 +19,15 @@ export default {
         return {
             dragging: false,
             handlePosition: 0,
-            epochs: [1, 20, 40, 60, 80, 95] // Позиции эпох в процентах
+            epochs: [
+                { value: 1, subItems: [100, 200, 300, 400] },
+                { value: 20, subItems: [100, 200, 300, 400] },
+                { value: 40, subItems: [100, 200, 300, 400] },
+                { value: 60, subItems: [100, 200] },
+                { value: 80, subItems: [100, 200] },
+                { value: 95, subItems: [100, 200, 300, 400, 500] }
+            ],
+            expandedEpochIndex: null,
         };
     },
     methods: {
@@ -46,18 +58,43 @@ export default {
             this.handlePosition = Math.max(0, Math.min(this.handlePosition, 100));
         },
         snapToNearestEpoch() {
-            let nearestEpoch = this.epochs[0];
-            let minDistance = Math.abs(this.handlePosition - this.epochs[0]);
+            let nearestEpoch = this.epochs[0].value;
+            let minDistance = Math.abs(this.handlePosition - this.epochs[0].value);
+            let nearestIndex = 0;
 
             for (let i = 1; i < this.epochs.length; i++) {
-                const distance = Math.abs(this.handlePosition - this.epochs[i]);
+                const distance = Math.abs(this.handlePosition - this.epochs[i].value);
                 if (distance < minDistance) {
                     minDistance = distance;
-                    nearestEpoch = this.epochs[i];
+                    nearestEpoch = this.epochs[i].value;
+                    nearestIndex = i;
                 }
             }
 
             this.handlePosition = nearestEpoch;
+            this.expandedEpochIndex = nearestIndex;
+        },
+        calculateEpochPosition(epoch, index) {
+            const baseOffset = 5; // Базовый отступ от верха слайдера в процентах
+            // Исключение для первой эпохи, когда она активна
+            if (index === 0 && this.expandedEpochIndex === 0) {
+                return epoch.value; // Первая эпоха остаётся на месте
+            } else if (index === this.expandedEpochIndex) {
+                return Math.max(epoch.value, baseOffset);
+            } else {
+                const offset = index > this.expandedEpochIndex ? 10 : -10;
+                return Math.max(epoch.value + offset, baseOffset);
+            }
+        },
+        subItemOffset(epoch, subItem, epochIndex) {
+            const expansionFactor = 5; // Коэффициент расширения
+            const baseOffset = 5; // Базовый отступ от верха слайдера в процентах
+
+            if (epochIndex === this.expandedEpochIndex) {
+                return Math.max(epoch.value + subItem * expansionFactor, baseOffset);
+            } else {
+                return Math.max(epoch.value + (subItem / 2), baseOffset);
+            }
         }
     }
 };
@@ -66,9 +103,9 @@ export default {
 <style>
 .vertical-slider {
     position: absolute;
-    height: 900px;
-    width: 1.5px;
-    background-color: #797979;
+    height: 1000px;
+    width: 3.5px;
+    background-color: #5c5c5c;
 }
 
 .slider-bar {
@@ -88,6 +125,17 @@ export default {
     border-radius: 50%;
 }
 
+.subitem-marker {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 5px;
+    height: 5px;
+    background-color: #00ff00;
+    border: 1px solid white;
+    border-radius: 50%;
+}
+
 .slider-handle {
     position: absolute;
     border-radius: 24px;
@@ -99,3 +147,4 @@ export default {
     cursor: pointer;
 }
 </style>
+
