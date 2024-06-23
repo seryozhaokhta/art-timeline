@@ -24,43 +24,31 @@ export default {
     name: 'MapApp',
     data() {
         return {
-            worldMap,
-            pointIcon,
+            worldMap, // Добавляем изображение карты как переменную данных
+            pointIcon, // Иконка точки теперь также переменная данных
             points: [],
-            viewBoxX: 0, // Добавляем начальное значение X для viewBox
-            viewBoxY: 0, // Добавляем начальное значение Y для viewBox
-            viewBoxWidth: 1000, // Значения width и height оставляем без изменений
-            viewBoxHeight: 500,
+            viewBox: '0 0 1000 500', // Начальное значение viewBox
         };
     },
     mounted() {
         this.adjustViewBoxForMobile();
         window.addEventListener('resize', this.adjustViewBoxForMobile);
     },
-    beforeUnmount() {
+    beforeUnmount() { // Здесь было изменено с beforeDestroy на beforeUnmount
         window.removeEventListener('resize', this.adjustViewBoxForMobile);
     },
     methods: {
         adjustViewBoxForMobile() {
             if (window.innerWidth <= 768) {
-                this.viewBoxWidth = 500;
-                this.viewBoxHeight = 250;
+                // Уменьшаем область viewBox для мобильных устройств
+                this.viewBox = '250 125 500 250';
             } else {
-                this.viewBoxWidth = 1000;
-                this.viewBoxHeight = 500;
+                // Возвращаем к исходному значению для десктопов
+                this.viewBox = '0 0 1000 500';
             }
-        },
-        moveMap(x, y) {
-            // Изменяем viewBoxX и viewBoxY для "перемещения" карты
-            this.viewBoxX += x;
-            this.viewBoxY += y;
         },
     },
     computed: {
-        viewBox() {
-            // Возвращаем строку viewBox для использования в шаблоне
-            return `${this.viewBoxX} ${this.viewBoxY} ${this.viewBoxWidth} ${this.viewBoxHeight}`;
-        },
         processedPoints() {
             return this.points;
         }
@@ -74,33 +62,22 @@ export default {
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 100%;
+    height: 100vh;
+    /* Занимает всю высоту видимой части экрана */
     padding: 20px;
-    background-color: rgba(128, 128, 128, 0.103);
     position: relative;
+    overflow: hidden;
+    /* Обеспечивает, чтобы содержимое не выходило за пределы контейнера */
 }
 
 .map-mask {
-    max-width: 100%;
-    height: 100vh;
-    overflow: hidden;
+    width: 100%;
+    height: 100%;
     position: relative;
-    border-radius: 24px;
+    overflow: hidden;
+    /* Гарантирует, что все, что выходит за пределы маски, будет скрыто */
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.world-map {
-    width: 100%;
-    height: 400px;
-    max-width: 900px;
-    max-height: 450px;
-}
-
-@media (max-width: 768px) {
-    .map-mask {
-        border-radius: 14px;
-    }
 }
 </style>
