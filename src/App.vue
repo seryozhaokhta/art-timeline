@@ -49,7 +49,7 @@ export default {
 
 .content-half {
   flex: 1;
-  box-sizing: border-box;
+  /* box-sizing: border-box; */
 }
 
 @media (max-width: 768px) {

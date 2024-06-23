@@ -45,9 +45,9 @@ export default {
 
 .map-mask {
     width: 900px;
-    /* Установите ширину, чтобы она соответствовала максимальной ширине */
+    /* Исходный размер для больших экранов */
     height: 900px;
-    /* Максимальная ширина для маски */
+    /* Исходный размер для больших экранов */
     overflow: hidden;
     position: relative;
     border-radius: 24px;
@@ -59,5 +59,18 @@ export default {
 .world-map {
     transform: scale(4) translateX(-10%) translateY(20%);
     transform-origin: 50% 50%;
+}
+
+/* Медиа-запросы для адаптации к меньшим экранам */
+@media (max-width: 768px) {
+    .map-mask {
+        border-radius: 14px;
+        width: 350px;
+        height: 300px;
+    }
+
+    .world-map {
+        transform: scale(8) translateX(-5%) translateY(20%);
+    }
 }
 </style>
