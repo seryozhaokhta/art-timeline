@@ -3,31 +3,31 @@
 <template>
     <div class="map-container">
         <div class="map-mask">
-            <img :src="worldMap" alt="World Map" class="world-map" />
-            <GridOverlay :points="points" />
+            <svg class="world-map" viewBox="0 0 1000 500">
+                <image href="@/assets/World_map_blank_without_borders.svg" width="100%" height="100%" />
+                <image v-for="point in points" :key="point.id" :href="pointIcon" :x="point.x" :y="point.y" width="4"
+                    height="4" />
+            </svg>
         </div>
     </div>
 </template>
 
 <script>
-import worldMap from '@/assets/World_map_blank_without_borders.svg';
-import GridOverlay from './GridOverlay.vue';
+import pointIcon from '@/assets/POINT.svg'; // Путь к вашему SVG-изображению точки
 
 export default {
     name: 'MapApp',
-    components: {
-        GridOverlay
-    },
     data() {
         return {
-            worldMap,
+            pointIcon,
             points: [
-                { id: 1, x: 10, y: 20 },
-                { id: 2, x: 30, y: 40 },
-                { id: 3, x: 50, y: 60 }
+                // Координаты для изображений точек в системе координат SVG
+                { id: 1, x: 537, y: 141 },
+                { id: 2, x: 537, y: 136 },
+                { id: 3, x: 529, y: 132 }
             ]
         };
-    }
+    },
 };
 </script>
 
@@ -41,24 +41,23 @@ export default {
     padding: 20px;
     background-color: rgba(128, 128, 128, 0.103);
     position: relative;
-    /* Ensure the container is positioned relative for absolute positioning inside */
 }
 
 .map-mask {
-    width: 700px;
-    height: 700px;
+    width: 900px;
+    /* Установите ширину, чтобы она соответствовала максимальной ширине */
+    height: 900px;
+    /* Максимальная ширина для маски */
     overflow: hidden;
     position: relative;
     border-radius: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .world-map {
-    position: absolute;
-    top: 90%;
-    left: -1%;
-    transform: scale(5.5);
+    transform: scale(4) translateX(-10%) translateY(20%);
     transform-origin: 50% 50%;
-    width: 100%;
-    height: auto;
 }
 </style>
