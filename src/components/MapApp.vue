@@ -56,7 +56,7 @@ export default {
 
 .map-mask {
     width: 100%;
-    height: 60vh;
+    height: 100vh;
     overflow: hidden;
     position: relative;
     border-radius: 24px;
