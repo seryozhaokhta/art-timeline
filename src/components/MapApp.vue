@@ -15,7 +15,6 @@
 </template>
 
 <script>
-// Импортируем изображения напрямую
 import worldMap from '@/assets/World_map_blank_without_borders.svg';
 import pointIcon from '@/assets/POINT.svg';
 
@@ -23,10 +22,9 @@ export default {
     name: 'MapApp',
     data() {
         return {
-            worldMap, // Добавляем изображение карты как переменную данных
-            pointIcon, // Иконка точки теперь также переменная данных
+            worldMap,
+            pointIcon,
             points: [
-                // Координаты для изображений точек в системе координат SVG
                 { id: 1, x: 537, y: 141 },
                 { id: 2, x: 537, y: 136 },
                 { id: 3, x: 529, y: 132 }
@@ -35,8 +33,7 @@ export default {
     },
     computed: {
         processedPoints() {
-            // Здесь может быть логика для обработки точек, например, фильтрация или сортировка
-            return this.points; // Пока просто возвращаем исходный массив
+            return this.points;
         }
     }
 };
@@ -56,7 +53,7 @@ export default {
 
 .map-mask {
     width: 100%;
-    max-height: 100vh;
+    height: 60vh;
     overflow: hidden;
     position: relative;
     border-radius: 24px;
@@ -66,24 +63,23 @@ export default {
 }
 
 .world-map {
-    width: 100%;
-    height: auto;
-    max-width: 900px;
-    max-height: 450px;
+    transform: translate(0, 35px) scale(1);
+    transition: transform 0.5s ease;
 }
 
-/* Медиа-запрос для устройств с максимальной шириной 768px */
+.world-map:hover {
+    transform: translate(0, 450px) scale(4);
+}
+
 @media (max-width: 768px) {
     .map-mask {
         border-radius: 14px;
     }
 
     .world-map {
+        transform: translate(-50px, 200px) scale(6);
         max-width: 100%;
-        /* Увеличиваем карту, чтобы она занимала больше места на экране */
         max-height: none;
-        scale: 2;
-        /* Убираем ограничение по высоте */
     }
 }
 </style>
