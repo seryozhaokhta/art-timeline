@@ -5,10 +5,6 @@
         <VerticalSlider @positionChange="handlePositionChange" class="slider" />
         <div class="epochs-container">
             <div v-for="(epoch, index) in data['Western-European-art-periodization']" :key="epoch.id" class="epoch">
-                <div class="epoch-line">
-                    <div class="circle"></div>
-                    <div class="line"></div>
-                </div>
                 <div class="epoch-content" :class="{ 'active-epoch': epoch.expanded }">
                     <div class="epoch-header" @click.stop="toggleExpand(epoch, index)">
                         <h2>{{ epoch.epoch }}</h2>
@@ -66,8 +62,6 @@
 
 <script>
 import VerticalSlider from './VerticalSlider.vue';
-
-// Импортируем иконки напрямую
 import subperiodsIcon from '@/assets/subperiodsIcon.svg';
 import crisisIcon from '@/assets/crisisIcon.svg';
 import transitionIcon from '@/assets/transitionIcon.svg';
@@ -94,7 +88,8 @@ export default {
     methods: {
         handlePositionChange(position) {
             const totalEpochs = this.data['Western-European-art-periodization'].length;
-            const index = Math.floor(position * totalEpochs / 100);
+            // Инвертируем позицию, чтобы 100 была верхней точкой (античность)
+            const index = totalEpochs - 1 - Math.floor(position * totalEpochs / 100);
             this.activeEpochIndex = index;
             this.activeTag = null;
             this.initializeExpansionStates();
@@ -142,7 +137,6 @@ export default {
             return epoch.subItems;
         },
         getIconPath(fileName) {
-            // Переключение между именами файлов для возврата соответствующих импортированных изображений
             switch (fileName) {
                 case 'subperiodsIcon.svg':
                     return subperiodsIcon;
@@ -156,6 +150,18 @@ export default {
                     console.error('No path found for icon:', fileName);
                     return '';
             }
+        },
+        closeAllEpochs() {
+            this.data['Western-European-art-periodization'].forEach(epoch => {
+                epoch.expanded = false;
+                if (epoch.subItems && Array.isArray(epoch.subItems)) {
+                    epoch.subItems.forEach(subItem => {
+                        subItem.expanded = false;
+                    });
+                }
+            });
+            this.activeEpochIndex = null;
+            this.activeTag = null;
         }
     }
 };
@@ -184,14 +190,6 @@ export default {
     width: 100%;
     margin-bottom: 30px;
     display: flex;
-}
-
-.epoch-line {
-    width: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: left;
-    margin-right: 10px;
 }
 
 .epoch-content {
