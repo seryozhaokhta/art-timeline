@@ -1,8 +1,7 @@
 <!-- components/ArtTimeline.vue -->
-
 <template>
     <div class="timeline" @click.self="closeAllEpochs">
-        <VerticalSlider @positionChange="handlePositionChange" class="slider" />
+        <VerticalSlider @positionChange="handlePositionChange" class="slider" :targetPosition="sliderPosition" />
         <div class="epochs-container">
             <div v-for="(epoch, index) in data['Western-European-art-periodization']" :key="epoch.id" class="epoch">
                 <div class="epoch-content" :class="{ 'active-epoch': epoch.expanded }">
@@ -80,6 +79,7 @@ export default {
             activeTag: null,
             activeEpoch: null,
             activeEpochIndex: null,
+            sliderPosition: 100, // Новая переменная для хранения позиции слайдера
         };
     },
     created() {
@@ -88,7 +88,6 @@ export default {
     methods: {
         handlePositionChange(position) {
             const totalEpochs = this.data['Western-European-art-periodization'].length;
-            // Инвертируем позицию, чтобы 100 была верхней точкой (античность)
             const index = totalEpochs - 1 - Math.floor(position * totalEpochs / 100);
             this.activeEpochIndex = index;
             this.activeTag = null;
@@ -103,12 +102,15 @@ export default {
             });
         },
         toggleExpand(epoch, index) {
-            epoch.expanded = !epoch.expanded;
-            if (!epoch.expanded) {
+            if (epoch.expanded) {
+                epoch.expanded = false;
                 this.activeEpochIndex = null;
-                this.activeTag = null;
             } else {
+                this.data['Western-European-art-periodization'].forEach(e => e.expanded = false);
+                epoch.expanded = true;
                 this.activeEpochIndex = index;
+                this.activeTag = null;
+                this.updateSliderPosition(index);
             }
         },
         toggleNestedExpand(item) {
@@ -147,23 +149,22 @@ export default {
                 case 'schoolsIcon.svg':
                     return schoolsIcon;
                 default:
-                    console.error('No path found for icon:', fileName);
                     return '';
             }
         },
         closeAllEpochs() {
             this.data['Western-European-art-periodization'].forEach(epoch => {
                 epoch.expanded = false;
-                if (epoch.subItems && Array.isArray(epoch.subItems)) {
-                    epoch.subItems.forEach(subItem => {
-                        subItem.expanded = false;
-                    });
-                }
             });
             this.activeEpochIndex = null;
             this.activeTag = null;
+        },
+        updateSliderPosition(index) {
+            const totalEpochs = this.data['Western-European-art-periodization'].length;
+            const position = 100 - (index / (totalEpochs - 1)) * 100;
+            this.sliderPosition = position;
         }
-    }
+    },
 };
 </script>
 
@@ -172,8 +173,6 @@ export default {
     display: flex;
     align-items: flex-start;
     max-width: 20%;
-    /* margin: 50px auto; */
-    /* padding: 30px; */
     background-color: #f8f8f8;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -239,7 +238,6 @@ h2 {
 
 .sub-item {
     margin-bottom: 10px;
-    /* Было 20px */
 }
 
 .sub-item h3 {
@@ -265,7 +263,6 @@ h2 {
 
 .nested-sub-items li {
     margin-bottom: 5px;
-    /* Было 10px */
 }
 
 .active-epoch .sub-items {
@@ -287,16 +284,13 @@ h2 {
     filter: invert(100%);
 }
 
-/* Подтянуть элемент p вверх */
 .sub-item p {
     margin-top: 0;
     padding-top: 0;
     position: relative;
     top: -5px;
-    /* Измените значение по своему усмотрению */
 }
 
-/* Медиа-запрос для устройств с максимальной шириной 768px */
 @media (max-width: 768px) {
     .timeline {
         display: flex;

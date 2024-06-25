@@ -11,6 +11,9 @@
 <script>
 export default {
     name: 'VerticalSlider',
+    props: {
+        targetPosition: Number, // Новое свойство для получения целевой позиции от родительского компонента
+    },
     data() {
         return {
             thumbTop: 0,
@@ -19,9 +22,14 @@ export default {
             throttleTimeout: null // Переменная для хранения таймаута
         };
     },
+    watch: {
+        targetPosition(newPosition) {
+            this.updateThumbPosition(newPosition);
+        }
+    },
     methods: {
         startDrag(event) {
-            event.preventDefault(); // Предотвращаем действие по умолчанию для события touchstart или mousedown
+            event.preventDefault();
             this.dragging = true;
             document.addEventListener('touchmove', this.moveSlider, { passive: false });
             document.addEventListener('mousemove', this.moveSlider);
@@ -35,24 +43,30 @@ export default {
             if (!this.dragging) return;
 
             const { top, height } = this.$el.getBoundingClientRect();
+            const thumbHeight = this.$refs.thumb.offsetHeight;
             let newY = event.clientY - top || (event.touches ? event.touches[0].clientY - top : event.clientY - top);
-            newY = Math.max(0, Math.min(newY, height));
+            newY = Math.max(thumbHeight / 2, Math.min(newY, height - thumbHeight / 2));
             this.thumbTop = newY;
 
-            const position = 100 - (newY / height) * 100;
+            const position = 100 - ((newY - thumbHeight / 2) / (height - thumbHeight)) * 100;
 
-            // Ограничиваем частоту обновлений позиции
             if (!this.throttleTimeout) {
                 this.throttleTimeout = setTimeout(() => {
                     this.$emit('positionChange', position);
                     this.throttleTimeout = null;
-                }, 100); // Обновляем позицию каждые 100 мс
+                }, 100);
             }
 
-            // Обновляем последнюю позицию
             this.lastPosition = position;
+        },
+        updateThumbPosition(position) {
+            const { height } = this.$el.getBoundingClientRect();
+            const thumbHeight = this.$refs.thumb.offsetHeight;
+            const newY = (height - thumbHeight) * (1 - position / 100) + thumbHeight / 2;
+            this.thumbTop = newY;
         }
     },
+
 };
 </script>
 
