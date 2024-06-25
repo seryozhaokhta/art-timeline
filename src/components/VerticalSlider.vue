@@ -85,6 +85,5 @@ export default {
     border-radius: 50%;
     cursor: grab;
     user-select: none;
-    transition: top 0.15s ease;
 }
 </style>
