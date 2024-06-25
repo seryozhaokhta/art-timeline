@@ -34,7 +34,7 @@ export default {
         moveSlider(event) {
             if (!this.dragging) return;
             const { top, height } = this.$el.getBoundingClientRect();
-            let newY = event.clientY || event.touches[0].clientY - top;
+            let newY = event.clientY - top || (event.touches ? event.touches[0].clientY - top : event.clientY - top);
             newY = Math.max(0, Math.min(newY, height));
             this.thumbTop = newY;
             this.$emit('positionChange', 100 - (newY / height) * 100);
