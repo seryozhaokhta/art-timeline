@@ -1,75 +1,25 @@
 <!-- components/ArtTimeline.vue -->
+
 <template>
     <div class="timeline" @click.self="closeAllEpochs">
         <VerticalSlider @positionChange="handlePositionChange" class="slider" :targetPosition="sliderPosition" />
         <div class="epochs-container">
-            <div v-for="(epoch, index) in data['Western-European-art-periodization']" :key="epoch.id" class="epoch">
-                <div class="epoch-content" :class="{ 'active-epoch': epoch.expanded }">
-                    <div class="epoch-header" @click.stop="toggleExpand(epoch, index)">
-                        <h2>{{ epoch.epoch }}</h2>
-                    </div>
-                    <transition name="expand">
-                        <div v-show="epoch.expanded" class="sub-items">
-                            <div v-if="epoch.tags" class="tags">
-                                <span v-for="tag in epoch.tags" :key="tag" class="tag"
-                                    @click.stop="changePeriodization(tag, epoch)">
-                                    {{ tag }}
-                                </span>
-                            </div>
-                            <div class="sub-items-content">
-                                <div v-for="subItem in getActiveSubItems(epoch)" :key="subItem.title" class="sub-item">
-                                    <h3 @click.stop="toggleNestedExpand(subItem)">
-                                        {{ subItem.title }}
-                                        <span v-if="subItem.subperiodsIcon" class="icon subperiods-icon"
-                                            :class="{ rotated: subItem.expanded }">
-                                            <img :src="getIconPath('subperiodsIcon.svg')" alt="Subperiods Icon">
-                                        </span>
-                                        <span v-if="subItem.crisisIcon" class="icon crisis-icon"
-                                            :class="{ rotated: subItem.expanded }">
-                                            <img :src="getIconPath('crisisIcon.svg')" alt="Crisis Icon">
-                                        </span>
-                                        <span v-if="subItem.transitionIcon" class="icon transition-icon"
-                                            :class="{ rotated: subItem.expanded }">
-                                            <img :src="getIconPath('transitionIcon.svg')" alt="Transition Icon">
-                                        </span>
-                                        <span v-if="subItem.schoolsIcon" class="icon schools-icon"
-                                            :class="{ rotated: subItem.expanded }">
-                                            <img :src="getIconPath('schoolsIcon.svg')" alt="Schools Icon">
-                                        </span>
-                                    </h3>
-                                    <p v-if="subItem.dates">{{ subItem.dates }}</p>
-                                    <p :class="['trend', subItem.trend]">{{ subItem.trend }}</p>
-                                    <transition name="expand">
-                                        <ul v-if="subItem.expandable && subItem.expanded" class="nested-sub-items">
-                                            <li v-for="nestedItem in subItem[subItem.type]" :key="nestedItem.title">
-                                                <h3 @click.stop="toggleNestedExpand(nestedItem)">{{ nestedItem.title }}
-                                                </h3>
-                                                <p v-if="nestedItem.dates">{{ nestedItem.dates }}</p>
-                                                <p :class="['trend', nestedItem.trend]">{{ nestedItem.trend }}</p>
-                                            </li>
-                                        </ul>
-                                    </transition>
-                                </div>
-                            </div>
-                        </div>
-                    </transition>
-                </div>
-            </div>
+            <ArtEpoch v-for="(epoch, index) in data['Western-European-art-periodization']" :key="epoch.id"
+                :epoch="epoch" :index="index" :activeTag="activeTag" @toggleExpand="toggleExpand"
+                @changePeriodization="changePeriodization" />
         </div>
     </div>
 </template>
 
 <script>
 import VerticalSlider from './VerticalSlider.vue';
-import subperiodsIcon from '@/assets/subperiodsIcon.svg';
-import crisisIcon from '@/assets/crisisIcon.svg';
-import transitionIcon from '@/assets/transitionIcon.svg';
-import schoolsIcon from '@/assets/schoolsIcon.svg';
+import ArtEpoch from './Epoch.vue';
 
 export default {
     name: 'ArtTimeline',
     components: {
-        VerticalSlider
+        VerticalSlider,
+        ArtEpoch,
     },
     props: {
         data: Object,
@@ -79,7 +29,7 @@ export default {
             activeTag: null,
             activeEpoch: null,
             activeEpochIndex: null,
-            sliderPosition: 100, // Новая переменная для хранения позиции слайдера
+            sliderPosition: 100,
         };
     },
     created() {
@@ -113,9 +63,6 @@ export default {
                 this.updateSliderPosition(index);
             }
         },
-        toggleNestedExpand(item) {
-            item.expanded = !item.expanded;
-        },
         changePeriodization(tag, epoch) {
             this.activeTag = tag;
             if (epoch.tags && epoch.tags.includes(tag)) {
@@ -132,26 +79,6 @@ export default {
                 });
             }
         },
-        getActiveSubItems(epoch) {
-            if (this.activeTag && epoch[this.activeTag]) {
-                return epoch[this.activeTag];
-            }
-            return epoch.subItems;
-        },
-        getIconPath(fileName) {
-            switch (fileName) {
-                case 'subperiodsIcon.svg':
-                    return subperiodsIcon;
-                case 'crisisIcon.svg':
-                    return crisisIcon;
-                case 'transitionIcon.svg':
-                    return transitionIcon;
-                case 'schoolsIcon.svg':
-                    return schoolsIcon;
-                default:
-                    return '';
-            }
-        },
         closeAllEpochs() {
             this.data['Western-European-art-periodization'].forEach(epoch => {
                 epoch.expanded = false;
@@ -163,7 +90,7 @@ export default {
             const totalEpochs = this.data['Western-European-art-periodization'].length;
             const position = 100 - (index / (totalEpochs - 1)) * 100;
             this.sliderPosition = position;
-        }
+        },
     },
 };
 </script>
