@@ -2,7 +2,7 @@
   "Western-European-art-periodization": [
     {
       "id": "epoch1",
-      "epoch": "Ancient Art",
+      "epoch": "Ancient",
       "expandable": true,
       "expanded": false,
       "subItems": [
@@ -53,7 +53,7 @@
     },
     {
       "id": "epoch2",
-      "epoch": "Medieval Art",
+      "epoch": "Medieval",
       "expandable": true,
       "expanded": false,
       "subItems": [

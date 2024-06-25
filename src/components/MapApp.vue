@@ -43,17 +43,17 @@ export default {
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 100%;
+    height: max-content;
     padding: 20px;
     background-color: rgba(0, 0, 0, 0.13);
-    position: relative;
+    position: relaative;
 }
 
 .map-mask {
     width: 100%;
     height: 100vh;
     overflow: hidden;
-    position: relative;
+
     border-radius: 24px;
     justify-content: center;
     align-items: center;

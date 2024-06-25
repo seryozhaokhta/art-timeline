@@ -15,6 +15,8 @@ export default {
         return {
             thumbTop: 0,
             dragging: false,
+            lastPosition: 0, // Новая переменная для хранения последней позиции
+            throttleTimeout: null // Переменная для хранения таймаута
         };
     },
     methods: {
@@ -28,17 +30,28 @@ export default {
             this.dragging = false;
             document.removeEventListener('touchmove', this.moveSlider);
             document.removeEventListener('mousemove', this.moveSlider);
-
-            // Ваш код для плавного перемещения кружка к центру выбранной эпохи
         },
         moveSlider(event) {
             if (!this.dragging) return;
+
             const { top, height } = this.$el.getBoundingClientRect();
             let newY = event.clientY - top || (event.touches ? event.touches[0].clientY - top : event.clientY - top);
             newY = Math.max(0, Math.min(newY, height));
             this.thumbTop = newY;
-            this.$emit('positionChange', 100 - (newY / height) * 100);
-        },
+
+            const position = 100 - (newY / height) * 100;
+
+            // Ограничиваем частоту обновлений позиции
+            if (!this.throttleTimeout) {
+                this.throttleTimeout = setTimeout(() => {
+                    this.$emit('positionChange', position);
+                    this.throttleTimeout = null;
+                }, 100); // Обновляем позицию каждые 100 мс
+            }
+
+            // Обновляем последнюю позицию
+            this.lastPosition = position;
+        }
     },
 };
 </script>
@@ -46,8 +59,8 @@ export default {
 <style scoped>
 .slider-container {
     position: relative;
-    height: 1000px;
-    width: 20px;
+    height: 750px;
+    width: 40px;
     margin: 0 auto;
     user-select: none;
 }
@@ -72,5 +85,6 @@ export default {
     border-radius: 50%;
     cursor: grab;
     user-select: none;
+    transition: top 0.15s ease;
 }
 </style>

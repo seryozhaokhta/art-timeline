@@ -172,8 +172,8 @@ export default {
     display: flex;
     align-items: flex-start;
     max-width: 20%;
-    margin: 50px auto;
-    padding: 30px;
+    /* margin: 50px auto; */
+    /* padding: 30px; */
     background-color: #f8f8f8;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -188,15 +188,14 @@ export default {
 
 .epoch {
     width: 100%;
-    margin-bottom: 30px;
+    margin-bottom: 5px;
     display: flex;
 }
 
 .epoch-content {
     background-color: #fff;
-    padding: 20px 25px;
+    padding: 5px 5px;
     border-radius: 8px;
-    height: auto;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
     width: 70%;
 }
@@ -206,9 +205,9 @@ export default {
 }
 
 h2 {
-    font-size: 30px;
+    font-size: 25px;
     font-style: normal;
-    font-weight: 100;
+    font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
