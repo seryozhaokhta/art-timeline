@@ -28,16 +28,19 @@
           "subperiods": [
             {
               "title": "Early Classical",
+              "dates": "480–450 BCE",
               "trend": "rise",
               "expanded": false
             },
             {
               "title": "High Classical",
+              "dates": "450–400 BCE",
               "trend": "rise",
               "expanded": false
             },
             {
               "title": "Late Classical",
+              "dates": "400–323 BCE",
               "trend": "rise",
               "expanded": false
             }
@@ -213,11 +216,13 @@
       "subItems": [
         {
           "title": "Sentimentalism",
+          "dates": "late 18th century — early 19th century",
           "trend": "rise",
           "expanded": false
         },
         {
           "title": "Academism",
+          "dates": "mid 19th century",
           "schoolsIcon": "/src/assets/schoolsIcon.svg",
           "expandable": true,
           "expanded": false,
@@ -225,6 +230,7 @@
           "schools": [
             {
               "title": "Biedermeier",
+              "dates": "1815 — 1848",
               "trend": "stability",
               "expanded": false
             },
@@ -237,16 +243,19 @@
         },
         {
           "title": "Realism",
+          "dates": "mid 19th century",
           "trend": "rise",
           "expanded": false
         },
         {
           "title": "Pre-Raphaelitism",
+          "dates": "mid 19th century",
           "trend": "rise",
           "expanded": false
         },
         {
           "title": "Eclecticism",
+          "dates": "late 19th century",
           "trend": "decline",
           "expanded": false
         }

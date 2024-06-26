@@ -19,13 +19,11 @@
                 </span>
             </h3>
             <p v-if="subItem.dates">{{ subItem.dates }}</p>
-            <p :class="['trend', subItem.trend]">{{ subItem.trend }}</p>
             <transition name="expand">
                 <ul v-if="subItem.expandable && subItem.expanded" class="nested-sub-items">
                     <li v-for="nestedItem in subItem[subItem.type]" :key="nestedItem.title">
                         <h3 @click.stop="toggleNestedExpand(nestedItem)">{{ nestedItem.title }}</h3>
                         <p v-if="nestedItem.dates">{{ nestedItem.dates }}</p>
-                        <p :class="['trend', nestedItem.trend]">{{ nestedItem.trend }}</p>
                     </li>
                 </ul>
             </transition>
@@ -71,6 +69,7 @@ export default {
 
 .sub-item {
     margin-bottom: 10px;
+    padding-left: 20px;
 }
 
 .sub-item h3 {
@@ -91,11 +90,13 @@ export default {
 }
 
 .nested-sub-items {
-    margin-top: -10px;
+    margin-top: 10px;
 }
 
 .nested-sub-items li {
     margin-bottom: -10px;
+    list-style-type: none;
+    padding-left: 10px;
 }
 
 .expand-enter-active,
@@ -120,4 +121,9 @@ export default {
     top: -5px;
 }
 
+.sub-items-content ul {
+    list-style-type: none;
+    padding-left: 10px;
+}
 </style>
+

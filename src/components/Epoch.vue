@@ -61,7 +61,7 @@ export default {
 .epoch-content {
     background-color: transparent;
     padding: 5px 5px;
-    border-bottom: 1px solid grey;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.2);
     width: 70%;
 }
 
@@ -79,5 +79,10 @@ h2 {
 
 .active-epoch .sub-items {
     max-height: var(--sub-items-max-height);
+}
+
+.epoch-content ul {
+    list-style-type: none;
+    padding-left: 0;
 }
 </style>
