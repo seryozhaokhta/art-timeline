@@ -100,7 +100,7 @@ export default {
 
 <style>
 .timeline-container {
-    max-width: 25%;
+    max-width: 37%;
     margin: 0 auto;
     padding: 20px;
     background-color: #fff;

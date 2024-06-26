@@ -67,13 +67,13 @@
         },
         {
           "title": "Early Middle Ages",
-          "dates": "260 — 525",
+          "dates": "260 — 525 centuries",
           "trend": "decline",
           "expanded": false
         },
         {
           "title": "Romanesque",
-          "dates": "800 — 1200",
+          "dates": "800 — 1200 centuries",
           "crisisIcon": "/src/assets/crisisIcon.svg",
           "expandable": true,
           "expanded": false,
@@ -88,7 +88,7 @@
         },
         {
           "title": "Gothic",
-          "dates": "1100 — 1400",
+          "dates": "1100 — 1400 centuries",
           "transitionIcon": "/src/assets/transitionIcon.svg",
           "expandable": true,
           "expanded": false,
@@ -112,19 +112,19 @@
       "Italian": [
         {
           "title": "Early Renaissance",
-          "dates": "1520 — 1600",
+          "dates": "1520 — 1600 centuries",
           "trend": "rise",
           "expanded": false
         },
         {
           "title": "High Renaissance",
-          "dates": "1520 — 1600",
+          "dates": "1520 — 1600 centuries",
           "trend": "rise",
           "expanded": false
         },
         {
           "title": "Mannerism",
-          "dates": "1520 — 1600",
+          "dates": "1520 — 1600 centuries",
           "trend": "decline",
           "expanded": false
         }
@@ -132,19 +132,19 @@
       "French": [
         {
           "title": "Early Renaissance",
-          "dates": "1495 — 1530",
+          "dates": "1495 — 1530 centuries",
           "trend": "rise",
           "expanded": false
         },
         {
           "title": "High Renaissance",
-          "dates": "1530 — 1560",
+          "dates": "1530 — 1560 centuries",
           "trend": "rise",
           "expanded": false
         },
         {
           "title": "Late Renaissance",
-          "dates": "1560 — 1610",
+          "dates": "1560 — 1610 centuries",
           "trend": "decline",
           "expanded": false
         }
@@ -152,13 +152,13 @@
       "German": [
         {
           "title": "Early Renaissance",
-          "dates": "circa 1430 — 1500",
+          "dates": "circa 1430 — 1500 centuries",
           "trend": "rise",
           "expanded": false
         },
         {
           "title": "High Renaissance",
-          "dates": "circa 1500 — 1530",
+          "dates": "circa 1500 — 1530 centuries",
           "trend": "rise",
           "expanded": false
         }
@@ -166,13 +166,13 @@
       "Dutch": [
         {
           "title": "Early Renaissance",
-          "dates": "1420 — 1520",
+          "dates": "1420 — 1520 centuries",
           "trend": "rise",
           "expanded": false
         },
         {
           "title": "High Renaissance",
-          "dates": "1520 — 1600",
+          "dates": "1520 — 1600 centuries",
           "trend": "rise",
           "expanded": false
         }
@@ -186,7 +186,7 @@
       "subItems": [
         {
           "title": "Baroque",
-          "dates": "1600 — 1730",
+          "dates": "1600 — 1730 centuries",
           "trend": "rise",
           "transitionIcon": "/src/assets/transitionIcon.svg",
           "expandable": true,
@@ -195,14 +195,14 @@
           "transition": [
             {
               "title": "Rococo",
-              "dates": "1720 — 1780",
+              "dates": "1720 — 1780 centuries",
               "expanded": false
             }
           ]
         },
         {
           "title": "Classicism",
-          "dates": "1750 — 1830",
+          "dates": "1750 — 1830 centuries",
           "trend": "rise",
           "expanded": false
         }

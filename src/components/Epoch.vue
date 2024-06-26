@@ -71,8 +71,8 @@ export default {
 
 h2 {
     font-size: 25px;
-    font-style: normal;
-    font-weight: bold;
+    font-weight: normal;
+    text-align: left;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }

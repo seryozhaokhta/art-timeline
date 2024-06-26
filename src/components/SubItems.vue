@@ -77,7 +77,8 @@ export default {
     margin-bottom: 0px;
     cursor: pointer;
     display: flex;
-    align-items: center;
+    font-weight: normal;
+    align-items: left;
 }
 
 .sub-item .icon {
@@ -94,7 +95,7 @@ export default {
 }
 
 .nested-sub-items li {
-    margin-bottom: -10px;
+    margin-bottom: 20px;
     list-style-type: none;
     padding-left: 10px;
 }
@@ -115,10 +116,10 @@ export default {
 }
 
 .sub-item p {
-    margin-top: 0;
+    margin-top: 5px;
     padding-top: 0;
     position: relative;
-    top: -5px;
+    opacity: 0.5;
 }
 
 .sub-items-content ul {

@@ -73,9 +73,9 @@ export default {
 <style scoped>
 .slider-container {
     position: relative;
-    height: 750px;
-    width: 40px;
-    margin: 0 auto;
+    height: 80vh;
+    margin-right: 40px;
+    margin-left: 10px;
     user-select: none;
 }
 
@@ -84,8 +84,9 @@ export default {
     left: 50%;
     transform: translateX(-50%);
     height: 100%;
-    width: 2px;
-    background-color: #ddd;
+    width: 1px;
+    background-color: #000000;
+    opacity: 0.2;
     user-select: none;
 }
 
@@ -95,9 +96,9 @@ export default {
     transform: translate(-50%, -50%);
     width: 20px;
     height: 20px;
-    background-color: #494949;
+    background-color: #000000;
+    border: 3px solid white;
     border-radius: 50%;
-    cursor: grab;
     user-select: none;
 }
 </style>
