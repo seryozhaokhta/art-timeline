@@ -1,12 +1,15 @@
 <!-- components/ArtTimeline.vue -->
 
 <template>
-    <div class="timeline" @click.self="closeAllEpochs">
-        <VerticalSlider @positionChange="handlePositionChange" class="slider" :targetPosition="sliderPosition" />
-        <div class="epochs-container">
-            <ArtEpoch v-for="(epoch, index) in data['Western-European-art-periodization']" :key="epoch.id"
-                :epoch="epoch" :index="index" :activeTag="activeTag" @toggleExpand="toggleExpand"
-                @changePeriodization="changePeriodization" />
+    <div class="timeline-container">
+        <h1 class="timeline-title">Western European Art History</h1>
+        <div class="timeline" @click.self="closeAllEpochs">
+            <VerticalSlider @positionChange="handlePositionChange" class="slider" :targetPosition="sliderPosition" />
+            <div class="epochs-container">
+                <ArtEpoch v-for="(epoch, index) in data['Western-European-art-periodization']" :key="epoch.id"
+                    :epoch="epoch" :index="index" :activeTag="activeTag" @toggleExpand="toggleExpand"
+                    @changePeriodization="changePeriodization" />
+            </div>
         </div>
     </div>
 </template>
@@ -96,13 +99,30 @@ export default {
 </script>
 
 <style>
+.timeline-container {
+    max-width: 25%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.timeline-title {
+    font-size: 30px;
+    font-weight: normal;
+    margin-bottom: 30px;
+    text-align: center;
+    color: #bebebe;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
 .timeline {
     display: flex;
     align-items: flex-start;
-    max-width: 20%;
-    background-color: #f8f8f8;
+    max-width: 100%;
+    background-color: transparent;
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .epochs-container {
@@ -119,10 +139,9 @@ export default {
 }
 
 .epoch-content {
-    background-color: #fff;
+    background-color: transparent;
     padding: 5px 5px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid grey;
     width: 70%;
 }
 
@@ -222,20 +241,18 @@ h2 {
     .timeline {
         display: flex;
         align-items: flex-start;
+        width: 100%;
+        background-color: transparent;
+    }
+
+    .timeline-container {
         max-width: 100%;
-        margin: 50px auto;
-        padding: 30px;
-        background-color: #f8f8f8;
-        border-radius: 10px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
 
     .epoch-content {
         background-color: #fff;
-        padding: 20px 25px;
-        border-radius: 8px;
+        border-radius: 0;
         height: auto;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
         width: 100%;
     }
 }

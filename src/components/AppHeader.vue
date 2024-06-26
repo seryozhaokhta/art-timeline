@@ -58,14 +58,14 @@ export default {
 .burger-button span {
     display: block;
     width: 2rem;
-    height: 0.2rem;
+    height: 0.02rem;
     background-color: #333;
     margin: 0.3rem 0;
     transition: 0.3s ease-in-out;
 }
 
 .burger-button span.active:nth-child(1) {
-    transform: translateY(8px) rotate(45deg);
+    transform: translateY(0px) rotate(45deg);
 }
 
 .burger-button span.active:nth-child(2) {
@@ -73,7 +73,7 @@ export default {
 }
 
 .burger-button span.active:nth-child(3) {
-    transform: translateY(-8px) rotate(-45deg);
+    transform: translateY(-10px) rotate(-45deg);
 }
 
 .menu {

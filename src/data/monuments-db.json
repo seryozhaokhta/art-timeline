@@ -1,0 +1,153 @@
+[
+  {
+    "id": 1,
+    "name": "Göbekli Tepe",
+    "x": -1,
+    "y": -1,
+    "founded": "c. 9600 BCE"
+  },
+  { "id": 2, "name": "Stonehenge", "x": -1, "y": -1, "founded": "c. 3000 BCE" },
+  {
+    "id": 3,
+    "name": "Ziggurat of Ur",
+    "x": -1,
+    "y": -1,
+    "founded": "c. 2100 BCE"
+  },
+  {
+    "id": 4,
+    "name": "Great Pyramid of Giza",
+    "x": -1,
+    "y": -1,
+    "founded": "c. 2560 BCE"
+  },
+  {
+    "id": 5,
+    "name": "Sphinx of Giza",
+    "x": -1,
+    "y": -1,
+    "founded": "c. 2500 BCE"
+  },
+  {
+    "id": 6,
+    "name": "Karnak Temple",
+    "x": -1,
+    "y": -1,
+    "founded": "c. 2055 BCE"
+  },
+  {
+    "id": 7,
+    "name": "Temple of Hatshepsut",
+    "x": -1,
+    "y": -1,
+    "founded": "c. 1479 BCE"
+  },
+  {
+    "id": 8,
+    "name": "Colossi of Memnon",
+    "x": -1,
+    "y": -1,
+    "founded": "c. 1350 BCE"
+  },
+  {
+    "id": 9,
+    "name": "Palace of Knossos",
+    "x": -1,
+    "y": -1,
+    "founded": "c. 1900 BCE"
+  },
+  {
+    "id": 10,
+    "name": "Lion Gate at Mycenae",
+    "x": -1,
+    "y": -1,
+    "founded": "c. 1250 BCE"
+  },
+  {
+    "id": 11,
+    "name": "Treasury of Atreus",
+    "x": -1,
+    "y": -1,
+    "founded": "c. 1250 BCE"
+  },
+  { "id": 12, "name": "Parthenon", "x": -1, "y": -1, "founded": "c. 447 BCE" },
+  {
+    "id": 13,
+    "name": "Temple of Artemis at Ephesus",
+    "x": -1,
+    "y": -1,
+    "founded": "c. 550 BCE"
+  },
+  {
+    "id": 14,
+    "name": "Statue of Zeus at Olympia",
+    "x": -1,
+    "y": -1,
+    "founded": "c. 435 BCE"
+  },
+  {
+    "id": 15,
+    "name": "Temple of Hephaestus",
+    "x": -1,
+    "y": -1,
+    "founded": "c. 415 BCE"
+  },
+  {
+    "id": 16,
+    "name": "Temple of Apollo at Delphi",
+    "x": -1,
+    "y": -1,
+    "founded": "c. 330 BCE"
+  },
+  {
+    "id": 17,
+    "name": "Al-Khazneh (The Treasury)",
+    "x": -1,
+    "y": -1,
+    "founded": "c. 100 BCE"
+  },
+  {
+    "id": 18,
+    "name": "Temple of Bel",
+    "x": -1,
+    "y": -1,
+    "founded": "c. 32 CE"
+  },
+  {
+    "id": 19,
+    "name": "Pyramid of the Sun",
+    "x": 400,
+    "y": 100,
+    "founded": "c. 100 CE"
+  },
+  {
+    "id": 20,
+    "name": "Pyramid of the Moon",
+    "x": -1,
+    "y": -1,
+    "founded": "c. 200 CE"
+  },
+  {
+    "id": 21,
+    "name": "Temple of Bacchus",
+    "x": -1,
+    "y": -1,
+    "founded": "c. 150 CE"
+  },
+  {
+    "id": 22,
+    "name": "Temple of Jupiter",
+    "x": -1,
+    "y": -1,
+    "founded": "c. 100 CE"
+  },
+  { "id": 23, "name": "Colosseum", "x": -1, "y": -1, "founded": "c. 70 CE" },
+  { "id": 24, "name": "Pantheon", "x": -1, "y": -1, "founded": "c. 126 CE" },
+  {
+    "id": 25,
+    "name": "Great Wall of China",
+    "x": -1,
+    "y": -1,
+    "founded": "c. 700 BCE"
+  }
+]
