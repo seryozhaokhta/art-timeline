@@ -110,7 +110,7 @@ export default {
     font-size: 30px;
     font-weight: normal;
     margin-bottom: 30px;
-    text-align: center;
+    text-align: left;
     color: #bebebe;
     padding-bottom: 10px;
     border: none;
@@ -132,7 +132,8 @@ export default {
 }
 
 .sub-items .tags {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+    margin-top: -15px;
 }
 
 .tag {
@@ -140,7 +141,7 @@ export default {
     padding: 5px 10px;
     background-color: #ddd;
     color: #333;
-    border-radius: 15px;
+    border-radius: 6px;
     margin-right: 5px;
     margin-bottom: 5px;
     cursor: pointer;

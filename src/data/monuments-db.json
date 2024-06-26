@@ -2,8 +2,8 @@
   {
     "id": 1,
     "name": "Göbekli Tepe",
-    "x": -1,
-    "y": -1,
+    "x": 572,
+    "y": 132,
     "founded": "c. 9600 BCE"
   },
   { "id": 2, "name": "Stonehenge", "x": -1, "y": -1, "founded": "c. 3000 BCE" },
