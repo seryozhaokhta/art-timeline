@@ -114,7 +114,7 @@ export default {
     text-align: center;
     color: #bebebe;
     padding-bottom: 10px;
-    border-bottom: 1px solid #ddd;
+    border: none;
 }
 
 .timeline {
@@ -130,37 +130,6 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-}
-
-.epoch {
-    width: 100%;
-    margin-bottom: 5px;
-    display: flex;
-}
-
-.epoch-content {
-    background-color: transparent;
-    padding: 5px 5px;
-    border-bottom: 1px solid grey;
-    width: 70%;
-}
-
-.epoch-header:hover {
-    background-color: transparent;
-}
-
-h2 {
-    font-size: 25px;
-    font-style: normal;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.sub-items {
-    overflow: hidden;
-    transition: max-height 0.3s ease;
-    max-height: 0;
 }
 
 .sub-items .tags {
@@ -180,61 +149,6 @@ h2 {
 
 .tag:hover {
     background-color: #ccc;
-}
-
-.sub-item {
-    margin-bottom: 10px;
-}
-
-.sub-item h3 {
-    margin: 0;
-    margin-bottom: 0px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-}
-
-.sub-item .icon {
-    margin-left: 10px;
-    transition: transform 0.3s ease;
-}
-
-.rotated {
-    transform: rotate(90deg);
-}
-
-.nested-sub-items {
-    margin-top: 10px;
-}
-
-.nested-sub-items li {
-    margin-bottom: 5px;
-}
-
-.active-epoch .sub-items {
-    max-height: var(--sub-items-max-height);
-}
-
-.expand-enter-active,
-.expand-leave-active {
-    transition: all 0.3s ease;
-}
-
-.expand-enter-from,
-.expand-leave-to {
-    opacity: 0;
-    transform: translateY(-10px);
-}
-
-.icon img {
-    filter: invert(100%);
-}
-
-.sub-item p {
-    margin-top: 0;
-    padding-top: 0;
-    position: relative;
-    top: -5px;
 }
 
 @media (max-width: 768px) {

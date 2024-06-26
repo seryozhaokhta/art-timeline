@@ -63,5 +63,61 @@ export default {
 </script>
 
 <style scoped>
-/* Стили для SubItems.vue */
+.sub-items {
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    max-height: 0;
+}
+
+.sub-item {
+    margin-bottom: 10px;
+}
+
+.sub-item h3 {
+    margin: 0;
+    margin-bottom: 0px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.sub-item .icon {
+    margin-left: 10px;
+    transition: transform 0.3s ease;
+}
+
+.rotated {
+    transform: rotate(90deg);
+}
+
+.nested-sub-items {
+    margin-top: -10px;
+}
+
+.nested-sub-items li {
+    margin-bottom: -10px;
+}
+
+.expand-enter-active,
+.expand-leave-active {
+    transition: all 0.3s ease;
+}
+
+.expand-enter-from,
+.expand-leave-to {
+    opacity: 0;
+    transform: translateY(-10px);
+}
+
+.icon img {
+    filter: invert(100%);
+}
+
+.sub-item p {
+    margin-top: 0;
+    padding-top: 0;
+    position: relative;
+    top: -5px;
+}
+
 </style>

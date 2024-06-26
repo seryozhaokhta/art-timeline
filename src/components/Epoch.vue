@@ -52,5 +52,32 @@ export default {
 </script>
 
 <style scoped>
-/* Стили для ArtEpoch.vue */
+.epoch {
+    width: 100%;
+    margin-bottom: 5px;
+    display: flex;
+}
+
+.epoch-content {
+    background-color: transparent;
+    padding: 5px 5px;
+    border-bottom: 1px solid grey;
+    width: 70%;
+}
+
+.epoch-header:hover {
+    background-color: transparent;
+}
+
+h2 {
+    font-size: 25px;
+    font-style: normal;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.active-epoch .sub-items {
+    max-height: var(--sub-items-max-height);
+}
 </style>
