@@ -68,8 +68,14 @@ export default {
 }
 
 .world-map {
-    transform: translate(50px, 135px);
-    scale: 4;
+    transform: translate(50px, 560px) scale(4);
+    transition: transform 0.3s ease;
+    /* Переносим сюда */
+}
+
+.world-map:hover {
+    transform: translate(50px, 560px) scale(5);
+    /* Добавляем transform здесь */
 }
 
 .point-label {
